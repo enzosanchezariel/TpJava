@@ -31,16 +31,16 @@
 				<ul>
 				<%if(usr != null){%>
 					<li>
-						<form action="signout" method="get">
-		                    <button class="outline" type="submit" data-tooltip="Logout" data-placement="bottom" style="padding: 0.4rem; margin: 0px;">
+						<form action="session" method="post">
+		                    <button name="action" value="logout" class="outline" type="submit" data-tooltip="Cerrar sesión" data-placement="bottom" style="padding: 0.4rem; margin: 0px;">
 		                        <strong><%=usr.getUser()%></strong>
 		                    </button>
 	                    </form>
 	                </li>
                 <%}else{%>
-	                <li><a href="signin.html" class="secondary">
+	                <li><a href="login.html" class="secondary">
 	                	<button type="submit" style="padding: 0.4rem; margin: 0px;">
-		                        <strong>Sign in</strong>
+		                        <strong>Iniciar sesión</strong>
 		                </button>
 	                </a></li>
                 <%}%>

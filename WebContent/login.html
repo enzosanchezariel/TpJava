@@ -2,25 +2,25 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Login</title>
+	<title>Iniciar sesión</title>
 	<link rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
 	
 </head>
 <body>
 	<main class="container">
-		<form action="signin" method="post">
+		<form action="session" method="post">
 			<article>
 				<fieldset>
-					<label> User <input name="user" placeholder="User"
+					<label>Usuario<input name="user" placeholder="Usuario"
 						autocomplete="username" required/>
 					</label>
-					<label> Password <input type="password" name="password"
-						placeholder="Password" required/>
+					<label>Contraseña<input type="password" name="password"
+						placeholder=Contraseña required/>
 					</label>
 				</fieldset>
 				<footer>
-					<input type="submit" value="Sign in" />
+					<button name="action" value="login" type="submit">Continuar</button>
 				</footer>
 			</article>
 		</form>
