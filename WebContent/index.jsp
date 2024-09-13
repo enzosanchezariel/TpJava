@@ -33,7 +33,7 @@
 					<li>
 						<form action="session" method="post">
 		                    <button name="action" value="logout" class="outline" type="submit" data-tooltip="Cerrar sesión" data-placement="bottom" style="padding: 0.4rem; margin: 0px;">
-		                        <strong><%=usr.getUser()%></strong>
+		                        <strong><%=usr.getName()%></strong>
 		                    </button>
 	                    </form>
 	                </li>
@@ -49,6 +49,7 @@
 		</header>
 		<main class="container">
 			<% if (usr != null){%>
+			<h3>Añadir sala</h3>
 	            <div class="grid">
 	                <div>
 	                    <article>
@@ -65,6 +66,35 @@
 	                    </article>
 	                </div>
 	            </div>
+	            <hr />
+				<h3>Salas disponibles</h3>
+	            <div class="responsive-grid">
+					<article>
+						<div class="room-title">
+							<a href="#" class="secondary no-underline">
+								<div class="row">
+									<p>10021</p>
+										<strong>Análisis Matemático - UTN FRRO - comisión 1k01</strong>
+								</div>
+							</a>
+							</div>
+							<footer>
+								<strong>Progreso</strong>
+								<div class="row completed">
+									<progress value="2" max="5"></progress>
+									<strong>2/5</strong>
+								</div>
+								<hr />
+								<div class="room-details">
+									<div class="row participants">
+										<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-users"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>
+										<strong>19/25</strong>
+									</div>
+									<p>Vencimiento: 10/10/2024 23:59</p>
+								</div>
+							</footer>
+					</article>
+				</div>
 	        <%}else{%>
 	        	<article>
 	        		<strong>Inicie sesión</strong>

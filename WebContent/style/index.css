@@ -3,3 +3,60 @@
     width: 100%;
     text-align: left;
 }
+
+.row {
+    display: flex;
+    margin: 0;
+    align-items: center;
+}
+
+.room-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.room-title .row p {
+    margin: 0;
+    margin-right: 10px;
+    padding-right: 10px;
+    border-right: 1px solid var(--pico-muted-border-color);
+}
+
+.room-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.no-underline {
+    text-decoration: none;
+    color: inherit;
+}
+
+.room-details p {
+    margin: 0;
+    margin-right: 10px;
+}
+
+.completed progress {
+    display: flex;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 20px;
+    color: white;
+}
+
+.participants strong {
+    margin-left: 5px;
+}
+
+.responsive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+}
+
+.responsive-grid article {
+    padding-bottom: 0;
+}

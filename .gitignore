@@ -9,6 +9,8 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+build/*
+!build/.gitkeep
 
 # External tool builders
 .externalToolBuilders/

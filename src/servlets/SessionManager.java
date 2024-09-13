@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.User;
-import logic.Login;
+import logic.UserLogic;
 
 @WebServlet({ "/Session", "/session", "/SESSION" })
 public class SessionManager extends HttpServlet {
@@ -26,14 +26,18 @@ public class SessionManager extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if ("login".equals(request.getParameter("action"))) {
-			String user = request.getParameter("user");
+			UserLogic userLogic = new UserLogic();
+			
+			String email = request.getParameter("user");
 			String password = request.getParameter("password");
+			User inputUsr = new User(email, password);
 			
-			User usr = new User(user, password);
+			User foundUsr = userLogic.searchAndCompare(inputUsr);
 			
-			if (usr.getUser().equals("enzo") && usr.getPassword().equals("enzo")) {
-				request.getSession().setAttribute("user", usr);
-				request.getRequestDispatcher("index.jsp").forward(request, response);
+			if (foundUsr != null) {
+				request.getSession().setAttribute("user", foundUsr);
+				//request.getRequestDispatcher("index.jsp").forward(request, response);
+				response.sendRedirect("index.jsp");
 			} else {
 				request.setAttribute("headTitle", "Login fallido");
 				request.setAttribute("bodyTitle", "El usuario ingresado no es válido");
