@@ -1,53 +1,86 @@
 package entities;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Room {
-	int codSala;
+	int id;
+	String name;
+	int code;
 	int amountParticipants;
-	Date fechaInicioSala;
-	int amountMaxParticipants;
-	Date fechaFinSala;
+	int maxAmountParticipants;
+	Date initDate;
+	Date endDate;
 	
-	public int getCodSala() {
-		return codSala;
+	SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
+	
+	public String getName() {
+		return name;
 	}
-	public void setCodSala(int codSala) {
-		this.codSala = codSala;
+
+	public void setName(String name) {
+		this.name = name;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
+
 	public int getAmountParticipants() {
 		return amountParticipants;
 	}
+
 	public void setAmountParticipants(int amountParticipants) {
 		this.amountParticipants = amountParticipants;
 	}
-	public Date getFechaInicioSala() {
-		return fechaInicioSala;
+
+	public int getMaxAmountParticipants() {
+		return maxAmountParticipants;
 	}
-	public void setFechaInicioSala(Date fechaInicioSala) {
-		this.fechaInicioSala = fechaInicioSala;
+
+	public void setMaxAmountParticipants(int maxAmountParticipants) {
+		this.maxAmountParticipants = maxAmountParticipants;
 	}
-	public int getAmountMaxParticipants() {
-		return amountMaxParticipants;
+
+	public String getInitDate() {
+		return outputFormat.format(initDate);
 	}
-	public void setAmountMaxParticipants(int amountMaxParticipants) {
-		this.amountMaxParticipants = amountMaxParticipants;
+
+	public void setInitDate(Date initDate) {
+		this.initDate = initDate;
 	}
-	public Date getFechaFinSala() {
-		return fechaFinSala;
+
+	public String getEndDate() {
+		return outputFormat.format(endDate);
 	}
-	public void setFechaFinSala(Date fechaFinSala) {
-		this.fechaFinSala = fechaFinSala;
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
-	
+
 	public Room() {}
-	
-	public Room(int codSala, int amountParticipants, Date fechaInicioSala, int amountMaxParticipants, Date fechaFinSala) {
-		this.codSala = codSala;
+
+	public Room(int id, String name, int code, int amountParticipants, int maxAmountParticipants, Date initDate, Date endDate) {
+		super();
+		this.name = name;
+		this.id = id;
+		this.code = code;
 		this.amountParticipants = amountParticipants;
-		this.fechaInicioSala = fechaInicioSala;
-		this.amountMaxParticipants = amountMaxParticipants;
-		this.fechaFinSala = fechaFinSala;
+		this.maxAmountParticipants = maxAmountParticipants;
+		this.initDate = initDate;
+		this.endDate = endDate;
 	}
 	
 }
