@@ -1,13 +1,24 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class User {
-	Integer id;
-	String name;
-	String surname;
-	String email;
-	String password;
-	Boolean deleted = false;
+	private Integer id;
+	private String name;
+	private String surname;
+	private String email;
+	private String password;
+	private Boolean deleted = false;
+	private ArrayList<Room> rooms;
 	
+	public ArrayList<Room> getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(ArrayList<Room> rooms) {
+		this.rooms = rooms;
+	}
+
 	public User(){}
 	
 	public User(String email, String password){
