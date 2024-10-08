@@ -72,7 +72,7 @@
 	            <hr />
 				<h3>Salas disponibles</h3>
 	            <div class="responsive-grid">
-	            	<% for (Room room : rooms) { %>
+	            	<% for (Room room : rooms) { if (!room.isDeleted()){%>
 					<article>
 						<div class="room-title">
 							<a href="room?id=<%=room.getId()%>" class="secondary no-underline">
@@ -92,7 +92,7 @@
 								</div>
 							</footer>
 					</article>
-					<% } %>
+					<% }} %>
 				</div>
 	        <%}else{%>
 	        	<article>

@@ -52,7 +52,14 @@ public class RoomServlet extends HttpServlet {
 					request.setAttribute("buttonAction", "index.jsp");
 					request.setAttribute("buttonMessage", "Aceptar");
 					request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
-				} else {
+				} else if (foundRoom.isDeleted()) {
+					// Puede que si encuentre la sala, pero la misma esté dada de baja
+					request.setAttribute("headTitle", "Sala eliminada");
+					request.setAttribute("bodyTitle", "La sala a la que intenta ingresar fue eliminada");
+					request.setAttribute("buttonAction", "index.jsp");
+					request.setAttribute("buttonMessage", "Aceptar");
+					request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
+				} {
 					request.setAttribute("room", foundRoom);
 					request.getRequestDispatcher("WEB-INF/room.jsp").forward(request, response);
 				}

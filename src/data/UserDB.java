@@ -16,23 +16,26 @@ public class UserDB {
 		Connection con = connect.getConnection();
 		ArrayList<User> users = new ArrayList<User>();
 		
-		try {
-			PreparedStatement stm = con.prepareStatement(sqlSelect);
-			ResultSet rs = stm.executeQuery();
-			while (rs.next()) {
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				String surname = rs.getString("surname");
-				String email = rs.getString("email");
-				String password = rs.getString("password");
-				boolean deleted = rs.getBoolean("deleted");
-				users.add(new User(id, name, surname, email, password, deleted));
+		if (con != null) {
+			try {
+				PreparedStatement stm = con.prepareStatement(sqlSelect);
+				ResultSet rs = stm.executeQuery();
+				while (rs.next()) {
+					int id = rs.getInt("id");
+					String name = rs.getString("name");
+					String surname = rs.getString("surname");
+					String email = rs.getString("email");
+					String password = rs.getString("password");
+					boolean deleted = rs.getBoolean("deleted");
+					users.add(new User(id, name, surname, email, password, deleted));
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		
 		return users;
 	}
 	
@@ -42,25 +45,27 @@ public class UserDB {
 		Connection con = connect.getConnection();
 		User user = null;
 		
-		try {
-			PreparedStatement stm = con.prepareStatement(sqlSelect);
-            stm.setInt(1, u.getId());
-			ResultSet rs = stm.executeQuery();
-			if (rs != null) {
-				rs.next();
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				String surname = rs.getString("surname");
-				String email = rs.getString("email");
-				String password = rs.getString("password");
-				boolean deleted = rs.getBoolean("deleted");
-				user = new User(id, name, surname, email, password, deleted);
+		if (con != null) {
+			try {
+				PreparedStatement stm = con.prepareStatement(sqlSelect);
+	            stm.setInt(1, u.getId());
+				ResultSet rs = stm.executeQuery();
+				if (rs.next()) {
+					int id = rs.getInt("id");
+					String name = rs.getString("name");
+					String surname = rs.getString("surname");
+					String email = rs.getString("email");
+					String password = rs.getString("password");
+					boolean deleted = rs.getBoolean("deleted");
+					user = new User(id, name, surname, email, password, deleted);
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		
 		return user;
 	}
 	
@@ -70,26 +75,29 @@ public class UserDB {
 		Connection con = connect.getConnection();
 		User user = null;
 		
-		try {
-			PreparedStatement stm = con.prepareStatement(sqlSelect);
-            stm.setString(1, u.getEmail());
-			ResultSet rs = stm.executeQuery();
-			if (rs != null) {
-				rs.next();
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				String surname = rs.getString("surname");
-				String email = rs.getString("email");
-				String password = rs.getString("password");
-				boolean deleted = rs.getBoolean("deleted");
-				//System.out.println(deleted);
-				user = new User(id, name, surname, email, password, deleted);
+		if (con != null) {
+			try {
+				PreparedStatement stm = con.prepareStatement(sqlSelect);
+	            stm.setString(1, u.getEmail());
+				ResultSet rs = stm.executeQuery();
+				
+				if (rs.next()) {
+					int id = rs.getInt("id");
+					String name = rs.getString("name");
+					String surname = rs.getString("surname");
+					String email = rs.getString("email");
+					String password = rs.getString("password");
+					boolean deleted = rs.getBoolean("deleted");
+					//System.out.println(deleted);
+					user = new User(id, name, surname, email, password, deleted);
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		
 		return user;
 	}
 	
@@ -97,17 +105,20 @@ public class UserDB {
 		String sqlSelect = "insert into users(name, surname, email, password) values(?, ?, ?, ?)";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
-		try {
-			PreparedStatement stm = con.prepareStatement(sqlSelect);
-			stm.setString(1, u.getName());
-			stm.setString(2, u.getSurname());
-			stm.setString(3, u.getEmail());
-			stm.setString(4, u.getPassword());
-			stm.executeUpdate();
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		if (con != null) {
+			try {
+				PreparedStatement stm = con.prepareStatement(sqlSelect);
+				stm.setString(1, u.getName());
+				stm.setString(2, u.getSurname());
+				stm.setString(3, u.getEmail());
+				stm.setString(4, u.getPassword());
+				stm.executeUpdate();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -115,14 +126,17 @@ public class UserDB {
 		String sqlSelect = "update users set deleted = 1 where id = ?";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
-		try {
-			PreparedStatement stm = con.prepareStatement(sqlSelect);
-			stm.setInt(1, u.getId());
-			stm.executeUpdate();
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		if (con != null) {
+			try {
+				PreparedStatement stm = con.prepareStatement(sqlSelect);
+				stm.setInt(1, u.getId());
+				stm.executeUpdate();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -130,18 +144,21 @@ public class UserDB {
 		String sqlSelect = "update users set name = ?, surname = ?, email = ?, password = ? where id = ?";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
-		try {
-			PreparedStatement stm = con.prepareStatement(sqlSelect);
-			stm.setString(1, u.getName());
-			stm.setString(2, u.getSurname());
-			stm.setString(3, u.getEmail());
-			stm.setString(4, u.getPassword());
-			stm.setInt(5, u.getId());
-			stm.executeUpdate();
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		if (con != null) {
+			try {
+				PreparedStatement stm = con.prepareStatement(sqlSelect);
+				stm.setString(1, u.getName());
+				stm.setString(2, u.getSurname());
+				stm.setString(3, u.getEmail());
+				stm.setString(4, u.getPassword());
+				stm.setInt(5, u.getId());
+				stm.executeUpdate();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }

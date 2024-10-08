@@ -1,0 +1,25 @@
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.chip {
+    display: inline-block;
+    padding: 0 5px;
+    border-radius: 5px;
+    border: 1px solid var(--pico-secondary);;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.chip .icon {
+    border-right: 1px solid var(--pico-secondary);
+    margin-right: 5px;
+    padding-right: 5px;
+}
+
+.no-underline {
+    text-decoration: none;
+    color: inherit;
+}

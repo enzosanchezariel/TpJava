@@ -1,19 +1,40 @@
 package entities;
 
+import entities.User;
+import java.util.ArrayList;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Room {
-	int id;
-	String name;
-	int code;
-	int amountParticipants;
-	int maxAmountParticipants;
-	Date initDate;
-	Date endDate;
+	private int id;
+	private String name;
+	private int code;
+	private int amountParticipants;
+	private int maxAmountParticipants;
+	private Date initDate;
+	private Date endDate;
+	private boolean deleted = false;
+	private ArrayList<User> users; 
 	
 	SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
 	
+	public ArrayList<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(ArrayList<User> users) {
+		this.users = users;
+	}
+	
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -69,10 +90,15 @@ public class Room {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	
+	public void addUser(User u) {
+		this.users.add(u);
+		this.amountParticipants=+1;
+	}
 
 	public Room() {}
 
-	public Room(int id, String name, int code, int amountParticipants, int maxAmountParticipants, Date initDate, Date endDate) {
+	public Room(int id, String name, int code, int amountParticipants, int maxAmountParticipants, Date initDate, Date endDate, boolean deleted) {
 		super();
 		this.name = name;
 		this.id = id;
@@ -81,6 +107,7 @@ public class Room {
 		this.maxAmountParticipants = maxAmountParticipants;
 		this.initDate = initDate;
 		this.endDate = endDate;
+		this.deleted = deleted;
 	}
 	
 }
