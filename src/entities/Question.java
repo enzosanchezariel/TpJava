@@ -1,28 +1,34 @@
 package entities;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Question {
-	int idQuestion;
-	int score;
-	// como manejamos las opciones
-	
-	public int getIdQuestion() {
-		return idQuestion;
-	}
-	public void setIdQuestion(int idQuestion) {
-		this.idQuestion = idQuestion;
-	}
-	public int getScore() {
-		return score;
-	}
-	public void setScore(int score) {
-		this.score = score;
-	}
-	
-	public Question() {}
-	
-	public Question( int idQuestion, int score) {
-		this.idQuestion = idQuestion;
-		this.score = score;
-	}
-	
+    private String questionText;
+    private String[] options;
+    private int correctAnswer;
+
+    public Question(String questionText, String[] options, int correctAnswer) {
+        this.questionText = questionText;
+        this.options = options;
+        this.correctAnswer = correctAnswer;
+    }
+
+    public Question(String questionText, List<String> options) {
+        this.questionText = questionText; 
+        this.options = options.toArray(new String[0]); // Convierte la lista a un array
+        this.correctAnswer = -1;
+    }
+
+	public String getQuestionText() {
+        return questionText;
+    }
+
+    public List<String> getOptions() {
+        return Arrays.asList(options); // Convierte el array a una lista
+    }
+
+    public int getCorrectAnswer() {
+        return correctAnswer;
+    }
 }
