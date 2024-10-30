@@ -45,7 +45,13 @@
 	                	<button type="submit" style="padding: 0.4rem; margin: 0px;">
 		                        <strong>Iniciar sesión</strong>
 		                </button>
-	                </a></li>
+	                </a>
+	                <a href="signup.html" class="secondary">
+	                	<button type="submit" style="padding: 0.4rem; margin: 0px;">
+		                        <strong>Registrarse</strong>
+		                </button>
+	                </a>
+	                </li>
                 <%}%>
                 </ul>
 			</nav>

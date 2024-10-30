@@ -46,6 +46,32 @@ public class SessionManager extends HttpServlet {
 				request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
 			}
 		}
+		else if ("register".equals(request.getParameter("action"))){
+			UserLogic userLogic = new UserLogic();
+			
+			String name = request.getParameter("name");
+			String surname = request.getParameter("surname");
+			String email = request.getParameter("email");
+			String password = request.getParameter("password");
+			String confirmPassword = request.getParameter("confirmPassword");
+			
+			User inputUsr = new User(name, surname, email, password);
+			
+			User validatedUser = userLogic.validateRegisterAndReturnUser(inputUsr, confirmPassword);
+			
+			
+			if( validatedUser != null) {
+				request.getSession().setAttribute("user", validatedUser);
+				response.sendRedirect("index.jsp");
+			} else {
+				request.setAttribute("headTitle", "Register fallido");
+				request.setAttribute("bodyTitle", "El usuario ya existe o los campos de contraseña no son iguales");
+				request.setAttribute("buttonAction", "signup.html");
+				request.setAttribute("buttonMessage", "Volver a intentar");
+				request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
+			}
+	
+		}
 		else if ("logout".equals(request.getParameter("action"))) {
 			request.getSession().invalidate();
 			request.setAttribute("headTitle", "Sesión cerrada");

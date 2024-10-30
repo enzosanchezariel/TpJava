@@ -46,4 +46,20 @@ public class UserLogic {
 			return null;
 		}
 	}
+	
+	public User validateRegisterAndReturnUser(User u, String confirmPassword) {
+		if (!(u.getPassword().equals(confirmPassword))) {
+			return null;
+		}
+		ArrayList<User> usersFromDB = db.getAll();
+		for(User currentUser: usersFromDB) {
+			if(u.getEmail().equalsIgnoreCase(currentUser.getEmail())) {
+				return null;
+			}
+		}
+		u.setDeleted(false);
+		this.save(u);
+		User userFromDB = this.getByEmail(u);
+		return userFromDB;	
+	}
 }

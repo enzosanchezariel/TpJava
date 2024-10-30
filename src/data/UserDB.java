@@ -102,7 +102,7 @@ public class UserDB {
 	}
 	
 	public void save(User u) {
-		String sqlSelect = "insert into users(name, surname, email, password) values(?, ?, ?, ?)";
+		String sqlSelect = "insert into users(name, surname, email, password, deleted) values(?, ?, ?, ?, ?)";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
 		
@@ -113,6 +113,7 @@ public class UserDB {
 				stm.setString(2, u.getSurname());
 				stm.setString(3, u.getEmail());
 				stm.setString(4, u.getPassword());
+				stm.setBoolean(5, u.isDeleted());
 				stm.executeUpdate();
 				con.close();
 			} catch (SQLException e) {
