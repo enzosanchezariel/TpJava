@@ -87,8 +87,8 @@ public class RoomDB {
 				stm.setInt(2, r.getCode());
 				stm.setInt(3, r.getAmountParticipants());
 				stm.setInt(4, r.getMaxAmountParticipants());
-				stm.setString(5, r.getInitDate());
-				stm.setString(6, r.getEndDate());			
+				stm.setDate(5, r.getInitDate());
+				stm.setDate(6, r.getEndDate());			
 				stm.executeUpdate();
 				con.close();
 			} catch (SQLException e) {
@@ -127,8 +127,8 @@ public class RoomDB {
 				stm.setInt(2, r.getCode());
 				stm.setInt(3, r.getAmountParticipants());
 				stm.setInt(4, r.getMaxAmountParticipants());
-				stm.setString(5, r.getInitDate());			
-				stm.setString(6, r.getEndDate());	
+				stm.setDate(5, r.getInitDate());			
+				stm.setDate(6, r.getEndDate());	
 				stm.setInt(7, r.getId());	
 				stm.executeUpdate();
 				con.close();

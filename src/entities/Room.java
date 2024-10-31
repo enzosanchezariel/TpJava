@@ -4,7 +4,7 @@ import entities.User;
 import java.util.ArrayList;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 
 public class Room {
 	private int id;

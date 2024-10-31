@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Registrarse</title>
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+</head>
+<body>
+    <main class="container">
+        <form action="session" method="post">
+            <article>
+                <fieldset>
+                    <label>Nombre
+                        <input name="name" placeholder="Nombre" autocomplete="given-name" required/>
+                    </label>
+                    <label>Apellido
+                        <input name="surname" placeholder="Apellido" autocomplete="family-name" required/>
+                    </label>
+                    <label>Email
+                        <input type="email" name="email" placeholder="Email" autocomplete="email" required/>
+                    </label>
+                    <label>Contraseña
+                        <input type="password" name="password" placeholder="Contraseña" required/>
+                    </label>
+                    <label>Confirmar contraseña
+                        <input type="password" name="confirmPassword" placeholder="Repite la contraseña" required/>
+                    </label>
+                </fieldset>
+                <footer>
+                    <button name="action" value="register" type="submit">Registrarse</button>
+                </footer>
+            </article>
+        </form>
+    </main>
+</body>
+</html>
