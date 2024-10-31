@@ -15,10 +15,28 @@ public class Room {
 	private Date initDate;
 	private Date endDate;
 	private boolean deleted = false;
-	private ArrayList<User> users; 
+	private User admin;
+	private ArrayList<User> users;
+	private ArrayList<Quiz> quizzes;
 	
 	SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
 	
+	public User getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(User admin) {
+		this.admin = admin;
+	}
+
+	public ArrayList<Quiz> getQuizzes() {
+		return quizzes;
+	}
+
+	public void setQuizzes(ArrayList<Quiz> quizzes) {
+		this.quizzes = quizzes;
+	}
+
 	public ArrayList<User> getUsers() {
 		return users;
 	}
@@ -75,16 +93,30 @@ public class Room {
 		this.maxAmountParticipants = maxAmountParticipants;
 	}
 
-	public String getInitDate() {
-		return outputFormat.format(initDate);
+	public Date getInitDate() {
+		return initDate;
+	}
+	
+	public String getInitDateAsString() {
+		if (initDate != null) {
+			return outputFormat.format(initDate);
+		}
+		return "";
 	}
 
 	public void setInitDate(Date initDate) {
 		this.initDate = initDate;
 	}
 
-	public String getEndDate() {
-		return outputFormat.format(endDate);
+	public Date getEndDate() {
+		return endDate;
+	}
+	
+	public String getEndDateAsString() {
+		if (endDate != null) {
+			return outputFormat.format(endDate);
+		}
+		return "";
 	}
 
 	public void setEndDate(Date endDate) {

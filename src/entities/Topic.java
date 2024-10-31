@@ -1,27 +1,45 @@
 package entities;
 
 public class Topic {
-	int idTopic;
-	String description;
+	int id;
+	String name;
+	boolean deleted;
 	
-	public int getIdTopic() {
-		return idTopic;
+	public int getId() {
+		return id;
 	}
-	public void setIdTopic(int idTopic) {
-		this.idTopic = idTopic;
+	
+	public void setId(int id) {
+		this.id = id;
 	}
-	public String getDescription() {
-		return description;
+	
+	public String getName() {
+		return name;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+	
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 	
 	public Topic() {}
 	
-	public Topic(int idTopic, String description) {
-		this.idTopic = idTopic;
-		this.description = description;
+	public Topic(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+	
+	public Topic(int id, String name, boolean deleted) {
+		this.id = id;
+		this.name = name;
+		this.deleted = deleted;
 	}
 	
 }

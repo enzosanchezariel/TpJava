@@ -18,7 +18,7 @@ import entities.Room;
 public class UserRoomDB {
 	
 	public void addUserToRoom(User u, Room r, String role){
-        String sqlSelect = "INSERT INTO users_rooms (user_id, room_id, role, joinedAt) VALUES (?, ?, ?, ?)";
+        String sqlSelect = "INSERT INTO users_rooms (user_id, room_id) VALUES (?, ?)";
         Connect connect = new Connect();
         Connection con = connect.getConnection();
         
@@ -28,7 +28,6 @@ public class UserRoomDB {
                 stm.setInt(1, u.getId());
                 stm.setInt(2, r.getId());
                 stm.setString(3, role);
-                stm.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
                 stm.executeQuery();
                 con.close();
             } catch(SQLException e){
@@ -38,7 +37,7 @@ public class UserRoomDB {
     }
 	
 	public ArrayList<Room> getRoomsByUserId(User u) {
-		String sqlSelect = "SELECT r.*, (SELECT COUNT(*) FROM users_rooms ur WHERE ur.room_id = r.id) AS amountParticipants FROM rooms r INNER JOIN users_rooms ur ON ur.room_id = r.id WHERE ur.user_id = ?";
+		String sqlSelect = "SELECT r.*, (SELECT COUNT(*) FROM users_rooms ur WHERE ur.room_id = r.id) AS amount_participants FROM rooms r INNER JOIN users_rooms ur ON ur.room_id = r.id WHERE ur.user_id = ?";
         Connect connect = new Connect();
         Connection con = connect.getConnection();
         ArrayList<Room> roomsFromUser = new ArrayList<>();
@@ -52,10 +51,10 @@ public class UserRoomDB {
             		int id = rs.getInt("id");
     				String name = rs.getString("name");
     				int code = rs.getInt("code");
-    				int amountParticipants = rs.getInt("amountParticipants");
-    				int maxAmountParticipants = rs.getInt("maxAmountParticipants");
-    				Date initDate = rs.getDate("initDate");
-    				Date endDate = rs.getDate("endDate");
+    				int amountParticipants = rs.getInt("amount_participants");
+    				int maxAmountParticipants = rs.getInt("max_amount_participants");
+    				Date initDate = rs.getDate("init_date");
+    				Date endDate = rs.getDate("end_date");
     				boolean deleted = rs.getBoolean("deleted");
     				roomsFromUser.add(new Room(id, name, code, amountParticipants, maxAmountParticipants, initDate, endDate, deleted));
             	}
@@ -67,6 +66,34 @@ public class UserRoomDB {
         
         return roomsFromUser;
 	}
+	
+	public User getRoomAdmin(Room r) {
+		String sqlSelect = "SELECT users.* FROM rooms INNER JOIN users ON users.id = rooms.admin WHERE rooms.id = ?";
+		Connect connect = new Connect();
+		Connection con = connect.getConnection();
+		User user = null;
+		
+		if (con != null) {
+			try {
+				PreparedStatement stm = con.prepareStatement(sqlSelect);
+	            stm.setInt(1, r.getId());
+				ResultSet rs = stm.executeQuery();
+				if (rs.next()) {
+					int id = rs.getInt("id");
+					String name = rs.getString("name");
+					String surname = rs.getString("surname");
+					String email = rs.getString("email");
+					String password = rs.getString("password");
+					boolean deleted = rs.getBoolean("deleted");
+					user = new User(id, name, surname, email, password, deleted);
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return user;
+	}
 }
-
-// hacer getRoomsByUserId y getUsersByRoomId

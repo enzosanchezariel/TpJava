@@ -59,7 +59,7 @@ public class RoomServlet extends HttpServlet {
 					request.setAttribute("buttonAction", "index.jsp");
 					request.setAttribute("buttonMessage", "Aceptar");
 					request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
-				} {
+				} else {
 					request.setAttribute("room", foundRoom);
 					request.getRequestDispatcher("WEB-INF/room.jsp").forward(request, response);
 				}

@@ -14,15 +14,12 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
 		<link rel="stylesheet" href="style/index.css" />
 		<%
-		User usr = null;
-		ArrayList<Room> rooms = null;
-		
-		if (request.getSession().getAttribute("user") != null){
-			usr = (User)request.getSession().getAttribute("user");
-			
+		User usr = (User)request.getSession().getAttribute("user");
+		//ArrayList<Room> rooms = null;
+		if (usr != null) {
 			RoomLogic roomLogic = new RoomLogic();
-			rooms = roomLogic.getRoomsByUser(usr);
-		};
+			usr.setRooms(roomLogic.getRoomsByUser(usr));
+		}
 		%>
 	</head>
 	<body>
@@ -72,15 +69,14 @@
 	            <hr />
 				<h3>Salas disponibles</h3>
 	            <div class="responsive-grid">
-	            	<% for (Room room : rooms) { if (!room.isDeleted()){%>
-					<article>
-						<div class="room-title">
-							<a href="room?id=<%=room.getId()%>" class="secondary no-underline">
+	            	<% for (Room room : usr.getRooms()) { if (!room.isDeleted()){%>
+	            	<a href="room?id=<%=room.getId()%>" class="secondary no-underline">
+						<article>
+							<div class="room-title">
 								<div class="row">
-									<p><%= room.getId() %></p>
+									<p class="no-underline"><%= room.getId() %></p>
 										<strong><%= room.getName() %></strong>
 								</div>
-							</a>
 							</div>
 							<footer>
 								<div class="room-details">
@@ -88,10 +84,11 @@
 										<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-users"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>
 										<strong><%= room.getAmountParticipants() %>/<%= room.getMaxAmountParticipants() %></strong>
 									</div>
-									<p>Vencimiento: <%= room.getEndDate() %></p>
+									<p class="no-underline">Vencimiento: <%= room.getEndDateAsString() %></p>
 								</div>
 							</footer>
-					</article>
+						</article>
+					</a>
 					<% }} %>
 				</div>
 	        <%}else{%>

@@ -3,6 +3,17 @@
     align-items: center;
 }
 
+@media (max-width: 576px) {
+    .flex {
+        align-items: start;
+        flex-direction: column;
+    }
+    .chip {
+        margin-right: 0;
+        margin-top: 5px;
+    }
+}
+
 .chip {
     display: inline-block;
     padding: 0 5px;

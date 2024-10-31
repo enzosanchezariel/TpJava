@@ -16,13 +16,13 @@ import logic.QuizLogic;
  * Servlet implementation class Quiz
  */
 @WebServlet({ "/Quiz", "/quiz", "/QUIZ" })
-public class Quiz extends HttpServlet {
+public class QuizServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * Default constructor. 
      */
-    public Quiz() {
+    public QuizServlet() {
         // TODO Auto-generated constructor stub
     }
 
@@ -34,11 +34,11 @@ public class Quiz extends HttpServlet {
         QuizLogic quizLogic = new QuizLogic();
 
         // Obtener la lista de preguntas a través de QuizLogic
-        List<Question> questions = quizLogic.getQuestions();
+        //List<Question> questions = quizLogic.getQuestions();
 
         // Pasar las preguntas a la JSP
-        request.setAttribute("questions", questions);
-        request.getRequestDispatcher("/WEB-INF/quiz.jsp").forward(request, response);
+        //request.setAttribute("questions", questions);
+        //request.getRequestDispatcher("/WEB-INF/quiz.jsp").forward(request, response);
     }
 
 	/**

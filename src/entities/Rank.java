@@ -1,6 +1,6 @@
 package entities;
 
-public class Range {
+public class Rank {
 	int idRange;
 	String description;
 	int amountChallenges;
@@ -24,9 +24,9 @@ public class Range {
 		this.amountChallenges = amountChallenges;
 	}
 	
-	public Range() {}
+	public Rank() {}
 	
-	public Range(int idRange, String description, int amountChallenges) {
+	public Rank(int idRange, String description, int amountChallenges) {
 		this.idRange = idRange;
 		this.description = description;
 		this.amountChallenges = amountChallenges;

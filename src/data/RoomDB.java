@@ -25,10 +25,10 @@ public class RoomDB {
 					int id = rs.getInt("id");
 					String name = rs.getString("name");
 					int code = rs.getInt("code");
-					int amountParticipants = rs.getInt("amountParticipants");
-					int maxAmountParticipants = rs.getInt("maxAmountParticipants");
-					Date initDate = rs.getDate("initDate");
-					Date endDate = rs.getDate("endDate");
+					int amountParticipants = rs.getInt("amount_participants");
+					int maxAmountParticipants = rs.getInt("max_amount_participants");
+					Date initDate = rs.getDate("init_date");
+					Date endDate = rs.getDate("end_date");
 					boolean deleted = rs.getBoolean("deleted");
 					rooms.add(new Room(id, name, code, amountParticipants, maxAmountParticipants, initDate, endDate, deleted));
 				}
@@ -57,10 +57,10 @@ public class RoomDB {
 					int id = rs.getInt("id");
 					String name = rs.getString("name");
 					int code = rs.getInt("code");
-					int amountParticipants = rs.getInt("amountParticipants");
-					int maxAmountParticipants = rs.getInt("maxAmountParticipants");
-					Date initDate = rs.getDate("initDate");
-					Date endDate = rs.getDate("endDate");
+					int amountParticipants = rs.getInt("amount_participants");
+					int maxAmountParticipants = rs.getInt("max_amount_participants");
+					Date initDate = rs.getDate("init_date");
+					Date endDate = rs.getDate("end_date");
 					boolean deleted = rs.getBoolean("deleted");
 					room = new Room(id, name, code, amountParticipants, maxAmountParticipants, initDate, endDate, deleted);
 				}
@@ -76,7 +76,7 @@ public class RoomDB {
 	
 	
 	public void save(Room r) {
-		String sqlSelect = "insert into rooms(name, code, amountParticipants, maxAmountParticipants, initDate, endDate) values(?, ?, ?, ?, ?, ?)";
+		String sqlSelect = "insert into rooms(name, code, amount_participants, max_amount_participants, init_date, end_date) values(?, ?, ?, ?, ?, ?)";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
 		
@@ -117,7 +117,7 @@ public class RoomDB {
 	}
 	
 	public void update(Room r) {
-		String sqlSelect = "update rooms set name = ?, code = ?, amountParticipants = ?, maxAmountParticipants = ?, initDate = ?, endDate = ? where id = ?";
+		String sqlSelect = "update rooms set name = ?, code = ?, amount_participants = ?, max_amount_participants = ?, init_date = ?, end_date = ? where id = ?";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
 		if (con != null) {

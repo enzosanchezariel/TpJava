@@ -1,34 +1,54 @@
 package entities;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Question {
+    private int id;
     private String questionText;
-    private String[] options;
     private int correctAnswer;
-
-    public Question(String questionText, String[] options, int correctAnswer) {
-        this.questionText = questionText;
-        this.options = options;
-        this.correctAnswer = correctAnswer;
-    }
-
-    public Question(String questionText, List<String> options) {
-        this.questionText = questionText; 
-        this.options = options.toArray(new String[0]); // Convierte la lista a un array
-        this.correctAnswer = -1;
-    }
-
+    private ArrayList<String> options;
+    
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getQuestionText() {
-        return questionText;
-    }
-
-    public List<String> getOptions() {
-        return Arrays.asList(options); // Convierte el array a una lista
-    }
-
-    public int getCorrectAnswer() {
-        return correctAnswer;
-    }
+		return questionText;
+	}
+	
+	public void setQuestionText(String questionText) {
+		this.questionText = questionText;
+	}
+	
+	public int getCorrectAnswer() {
+		return correctAnswer;
+	}
+	
+	public void setCorrectAnswer(int correctAnswer) {
+		this.correctAnswer = correctAnswer;
+	}
+	
+	public ArrayList<String> getOptions() {
+		return options;
+	}
+	
+	public void setOptions(ArrayList<String> options) {
+		this.options = options;
+	}
+	
+	public Question() {}
+	
+	public Question(int id, String questionText, int correctAnswer, ArrayList<String> options) {
+		super();
+		this.id = id;
+		this.questionText = questionText;
+		this.correctAnswer = correctAnswer;
+		this.options = options;
+	}
 }
