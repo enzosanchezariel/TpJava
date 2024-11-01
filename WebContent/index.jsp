@@ -88,17 +88,20 @@
 			<h3>Añadir sala</h3>
 	            <div class="grid">
 	                <div>
-	                    <article>
-	                        <strong>Únete a una sala</strong>
-	                        <footer>
-	                            <input type="text" name="code" placeholder="Código" aria-label="Text"/>
-	                        </footer>
-	                    </article>
+	                	<form action="room" method="post">
+		                    <article>
+		                        <strong>Únete a una sala</strong>
+		                        <footer>
+		                            <input type="text" name="code" placeholder="Código" aria-label="Text"/>
+		                            <button type="submit" style="padding: 0.4rem; margin: 0px; width:30%;">Buscar</button>
+		                        </footer>
+		                    </article>
+		            	</form>
 	                </div>
 	                <div>
 	                    <article>
 	                        <strong>Crea una sala</strong>
-	                        <footer><button class="btn">Crear</button></footer>
+	                        <footer><button type="submit" style="padding: 0.4rem; margin: 0px; width:100%;">Crear</button></footer>
 	                    </article>
 	                </div>
 	            </div>

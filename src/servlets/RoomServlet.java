@@ -67,8 +67,70 @@ public class RoomServlet extends HttpServlet {
 		}
 	}
 
-	/*protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}*/
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    RoomLogic roomLogic = new RoomLogic();
+	    Integer roomcode;
+	    Room room = new Room(); 
+
+	    try {
+	        roomcode = Integer.parseInt(request.getParameter("code"));
+	        room.setCode(roomcode);
+	    } catch (NumberFormatException e) {
+	        roomcode = null;
+	    }
+
+	    User usr = (User) request.getSession().getAttribute("user");
+
+	    if (usr == null) {
+	        request.setAttribute("headTitle", "Acceso denegado");
+	        request.setAttribute("bodyTitle", "Debe iniciar sesión para entrar a una sala");
+	        request.setAttribute("buttonAction", "login.html");
+	        request.setAttribute("buttonMessage", "Iniciar sesión");
+	        request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
+	        return;
+	    }
+
+	    if (roomcode == null) {
+	        response.sendRedirect("index.jsp");
+	        return;
+	    }
+
+	    Room foundRoom = roomLogic.getRoomByCode(room);
+
+	    if (foundRoom == null) {
+	        request.setAttribute("headTitle", "Sala no encontrada");
+	        request.setAttribute("bodyTitle", "La sala no existe");
+	        request.setAttribute("buttonAction", "index.jsp");
+	        request.setAttribute("buttonMessage", "Aceptar");
+	        request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
+	        return;
+	    }
+
+	    if (foundRoom.isDeleted()) {
+	        request.setAttribute("headTitle", "Sala eliminada");
+	        request.setAttribute("bodyTitle", "La sala a la que intenta ingresar fue eliminada");
+	        request.setAttribute("buttonAction", "index.jsp");
+	        request.setAttribute("buttonMessage", "Aceptar");
+	        request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
+	        return;
+	    }
+
+	    boolean possible = roomLogic.joinPossible(usr, foundRoom);
+
+	    if (!possible) {
+	        request.setAttribute("headTitle", "Sala encontrada");
+	        request.setAttribute("bodyTitle", "No es posible unirlo a la sala");
+	        request.setAttribute("buttonAction", "index.jsp");
+	        request.setAttribute("buttonMessage", "Aceptar");
+	        request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
+	        return;
+	    }
+
+	    roomLogic.addUserToRoom(usr, foundRoom);
+	    Room joinRoom = roomLogic.confirmAccess(usr, foundRoom);
+
+	    request.setAttribute("room", joinRoom);
+	    request.getRequestDispatcher("WEB-INF/room.jsp").forward(request, response);
+	}
 
 }

@@ -113,7 +113,7 @@ public class Room {
 	}
 	
 	public String getEndDateAsString() {
-		if (endDate != null) {
+		if (endDate != null) { 
 			return outputFormat.format(endDate);
 		}
 		return "";
@@ -141,5 +141,7 @@ public class Room {
 		this.endDate = endDate;
 		this.deleted = deleted;
 	}
+
+
 	
 }

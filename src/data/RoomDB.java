@@ -75,6 +75,41 @@ public class RoomDB {
 	}
 	
 	
+	public Room getByCode(Room r) {
+		String sqlSelect = "select r.*, (SELECT COUNT(*) FROM users_rooms ur WHERE ur.room_id = r.id)  AS amount_participants from rooms r where r.code = ?";
+		Connect connect = new Connect();
+		Connection con = connect.getConnection();
+		Room room = null;
+		
+		if (con != null) {
+			try {
+				PreparedStatement stm = con.prepareStatement(sqlSelect);
+	            stm.setInt(1, r.getCode());
+				ResultSet rs = stm.executeQuery();
+				if (rs.next()) {
+					int id = rs.getInt("id");
+					String name = rs.getString("name");
+					int code = rs.getInt("code");
+					int amountParticipants = rs.getInt("amount_participants");
+					int maxAmountParticipants = rs.getInt("max_amount_participants");
+					Date initDate = rs.getDate("init_date");
+					Date endDate = rs.getDate("end_date");
+					boolean deleted = rs.getBoolean("deleted");
+					room = new Room(id, name, code, amountParticipants, maxAmountParticipants, initDate, endDate, deleted);
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return room;
+	}
+	
+	
+	
+	
 	public void save(Room r) {
 		String sqlSelect = "insert into rooms(name, code, amount_participants, max_amount_participants, init_date, end_date) values(?, ?, ?, ?, ?, ?)";
 		Connect connect = new Connect();

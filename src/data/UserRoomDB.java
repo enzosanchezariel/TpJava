@@ -17,7 +17,7 @@ import entities.Room;
 
 public class UserRoomDB {
 	
-	public void addUserToRoom(User u, Room r, String role){
+	public void addUserToRoom(User u, Room r){
         String sqlSelect = "INSERT INTO users_rooms (user_id, room_id) VALUES (?, ?)";
         Connect connect = new Connect();
         Connection con = connect.getConnection();
@@ -27,8 +27,7 @@ public class UserRoomDB {
             	PreparedStatement stm = con.prepareStatement(sqlSelect);
                 stm.setInt(1, u.getId());
                 stm.setInt(2, r.getId());
-                stm.setString(3, role);
-                stm.executeQuery();
+                stm.executeUpdate();
                 con.close();
             } catch(SQLException e){
             	e.printStackTrace();
