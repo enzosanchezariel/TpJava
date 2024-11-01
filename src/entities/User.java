@@ -8,7 +8,6 @@ public class User {
 	private String surname;
 	private String email;
 	private String password;
-	private Boolean deleted = false;
 	private ArrayList<Room> rooms;
 	
 	public ArrayList<Room> getRooms() {
@@ -33,13 +32,12 @@ public class User {
 		this.password = password;
 	}
 	
-	public User(Integer id, String name, String surname, String email, String password, Boolean deleted) {
+	public User(Integer id, String name, String surname, String email, String password) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
 		this.password = password;
-		this.deleted = deleted;
 	}
 
 	public Integer getId() {
@@ -80,14 +78,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public Boolean isDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
 	}
 	
 }

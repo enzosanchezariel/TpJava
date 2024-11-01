@@ -1,9 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Iniciar sesión</title>
+	<title>Confirme su contraseña</title>
 	<link rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
 </head>
@@ -16,18 +18,16 @@
 		</nav>
 	</header>
 	<main class="container">
-		<form action="session" method="post">
+		<h3>Confirme su contraseña para realizar modificaciones a su cuenta</h3>
+		<form action="account" method="post">
 			<article>
 				<fieldset>
-					<label>Email<input type="email" name="user" placeholder="Email"
-						autocomplete="email" required/>
-					</label>
 					<label>Contraseña<input type="password" name="password"
 						placeholder=Contraseña required/>
 					</label>
 				</fieldset>
 				<footer>
-					<button name="action" value="login" type="submit">Continuar</button>
+					<button name="action" value="confirmAccount" type="submit">Continuar</button>
 				</footer>
 			</article>
 		</form>

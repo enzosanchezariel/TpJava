@@ -2,6 +2,8 @@ package logic;
 
 import java.util.ArrayList;
 
+import com.mysql.cj.util.StringUtils;
+
 import data.UserDB;
 import entities.User;
 
@@ -34,10 +36,11 @@ public class UserLogic {
 		db.update(u);
 	}
 	
+	
+	
 	public User searchAndCompare(User u) {
 		User userFromDB = db.getByEmail(u);
 		if (userFromDB != null
-				&& !userFromDB.isDeleted()
 				&& u.getEmail().equals(userFromDB.getEmail())
 				&& u.getPassword().equals(userFromDB.getPassword())) {
 			return userFromDB;
@@ -48,6 +51,14 @@ public class UserLogic {
 	}
 	
 	public User validateRegisterAndReturnUser(User u, String confirmPassword) {
+		if (
+			StringUtils.isEmptyOrWhitespaceOnly(u.getPassword())
+			|| StringUtils.isEmptyOrWhitespaceOnly(u.getName())
+			|| StringUtils.isEmptyOrWhitespaceOnly(u.getSurname())
+			|| StringUtils.isEmptyOrWhitespaceOnly(u.getEmail())
+		) {
+			return null;
+		}
 		if (!(u.getPassword().equals(confirmPassword))) {
 			return null;
 		}
@@ -57,9 +68,31 @@ public class UserLogic {
 				return null;
 			}
 		}
-		u.setDeleted(false);
 		this.save(u);
 		User userFromDB = this.getByEmail(u);
+		return userFromDB;	
+	}
+	
+	public User validateUpdateAndReturnUser(User u, String confirmPassword) {
+		if (
+			StringUtils.isEmptyOrWhitespaceOnly(u.getPassword())
+			|| StringUtils.isEmptyOrWhitespaceOnly(u.getName())
+			|| StringUtils.isEmptyOrWhitespaceOnly(u.getSurname())
+			|| StringUtils.isEmptyOrWhitespaceOnly(u.getEmail())
+		) {
+			return null;
+		}
+		if (!(u.getPassword().equals(confirmPassword))) {
+			return null;
+		}
+		ArrayList<User> usersFromDB = db.getAll();
+		for(User currentUser: usersFromDB) {
+			if(u.getEmail().equalsIgnoreCase(currentUser.getEmail()) && u.getId() != currentUser.getId()) {
+				return null;
+			}
+		}
+		this.update(u);
+		User userFromDB = this.getById(u);
 		return userFromDB;	
 	}
 }

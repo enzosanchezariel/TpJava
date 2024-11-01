@@ -31,7 +31,7 @@ CREATE TABLE `answers` (
   PRIMARY KEY (`user_id`,`quizz_id`),
   KEY `answers_quizzes_FK` (`quizz_id`),
   CONSTRAINT `answers_quizzes_FK` FOREIGN KEY (`quizz_id`) REFERENCES `quizzes` (`id`),
-  CONSTRAINT `answers_users_FK` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `answers_users_FK` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -197,12 +197,12 @@ CREATE TABLE `rooms` (
   `init_date` date NOT NULL,
   `end_date` date NOT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
-  `admin` int NOT NULL,
+  `admin` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `code_UNIQUE` (`code`),
   KEY `rooms_users_FK` (`admin`),
-  CONSTRAINT `rooms_users_FK` FOREIGN KEY (`admin`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `rooms_users_FK` FOREIGN KEY (`admin`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -211,7 +211,7 @@ CREATE TABLE `rooms` (
 
 LOCK TABLES `rooms` WRITE;
 /*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
-INSERT INTO `rooms` VALUES (1,'Meta minds',123123,20,'2024-10-07','2024-11-07',0,2),(2,'Cine Argentino',232425,25,'2024-11-01','2024-12-01',0,1);
+INSERT INTO `rooms` VALUES (1,'Meta minds',123123,20,'2024-10-07','2024-11-07',0,2),(2,'Cine Argentino',232425,25,'2024-11-01','2024-12-01',0,1),(3,'Sala con admin que eliminó su cuenta',324565,10,'2024-10-31','2024-11-30',0,NULL);
 /*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -253,10 +253,9 @@ CREATE TABLE `users` (
   `surname` varchar(45) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -265,7 +264,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Ricardo','Darín','darin.carp@gmail.com','asdasd',0),(2,'Mark','Zuckerberg','area51.boy@meta.com','dadada',0),(3,'Gustavo','Cerati','gustavo.stereo@outlook.com','americanBlind',1),(4,'Diego','Maradona','d10.maradona@hotmail.com','footballHigh',1),(5,'Mario','Bros','itsame.mario@yahoo.com','solong',0);
+INSERT INTO `users` VALUES (1,'Ricardo','Darín','darin.carp@gmail.com','asdasd'),(2,'Mark','Zuckerberg','area51.boy@meta.com','dadada'),(3,'Gustavo','Cerati','gustavo.stereo@outlook.com','americanBlind'),(4,'Diego','Maradona','d10.maradona@hotmail.com','footballHigh'),(5,'Mario','Bros','itsame.mario@yahoo.com','solong'),(6,'Enzo','Sánchez','enzo.sanchez.ariel@gmail.com','asdasd');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -282,7 +281,7 @@ CREATE TABLE `users_rooms` (
   PRIMARY KEY (`user_id`,`room_id`),
   KEY `fk_users_rooms_1_idx` (`room_id`),
   CONSTRAINT `fk_users_rooms_1` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`),
-  CONSTRAINT `fk_users_rooms_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `fk_users_rooms_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -292,7 +291,7 @@ CREATE TABLE `users_rooms` (
 
 LOCK TABLES `users_rooms` WRITE;
 /*!40000 ALTER TABLE `users_rooms` DISABLE KEYS */;
-INSERT INTO `users_rooms` VALUES (1,1),(2,1),(1,2);
+INSERT INTO `users_rooms` VALUES (1,1),(2,1),(1,2),(6,3);
 /*!40000 ALTER TABLE `users_rooms` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -305,4 +304,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-30 22:05:35
+-- Dump completed on 2024-10-31 20:07:37

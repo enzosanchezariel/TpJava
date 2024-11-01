@@ -31,23 +31,53 @@
 				<ul>
 				<%if(usr != null){%>
 					<li>
-						<form action="session" method="post">
-		                    <button name="action" value="logout" class="outline" type="submit" data-tooltip="Cerrar sesión" data-placement="bottom" style="padding: 0.4rem; margin: 0px;">
-		                        <strong><%=usr.getName()%></strong>
-		                    </button>
-	                    </form>
+	                    <details class="dropdown">
+					        <summary>
+					          Cuenta
+					        </summary>
+					        <ul dir="rtl">
+					          <li>
+					          	<a>
+					          	<form action="session" method="post">
+				                    <button name="action" value="logout" type="submit" data-placement="bottom" class="dropdown-button">
+				                        Cerrar sesión
+				                    </button>
+			                    </form>
+			                    </a>
+					          </li>
+					          <li>
+					          	<a href="account" class="secondary">
+				                	<button type="submit" class="dropdown-button">
+					                        Ajustes de usuario
+					                </button>
+				                </a>
+					          </li>
+					        </ul>
+				      </details>
 	                </li>
                 <%}else{%>
-	                <li><a href="login.html" class="secondary">
-	                	<button type="submit" style="padding: 0.4rem; margin: 0px;">
-		                        <strong>Iniciar sesión</strong>
-		                </button>
-	                </a>
-	                <a href="signup.html" class="secondary">
-	                	<button type="submit" style="padding: 0.4rem; margin: 0px;">
-		                        <strong>Registrarse</strong>
-		                </button>
-	                </a>
+	                <li>
+	                    <details class="dropdown">
+					        <summary>
+					          Ingresar
+					        </summary>
+					        <ul dir="rtl">
+					          <li>
+					          	<a href="login.html" class="secondary">
+				                	<button type="submit" class="dropdown-button">
+					                        Iniciar sesión
+					                </button>
+				                </a>
+					          </li>
+					          <li>
+					          	<a href="signup.html" class="secondary">
+				                	<button type="submit" class="dropdown-button">
+					                        Registrarse
+					                </button>
+				                </a>
+					          </li>
+					        </ul>
+				      </details>
 	                </li>
                 <%}%>
                 </ul>
@@ -85,13 +115,14 @@
 								</div>
 							</div>
 							<footer>
-								<div class="room-details">
-									<div class="row participants">
-										<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-users"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>
-										<strong><%= room.getAmountParticipants() %>/<%= room.getMaxAmountParticipants() %></strong>
-									</div>
-									<p class="no-underline">Vencimiento: <%= room.getEndDateAsString() %></p>
-								</div>
+								<div class="flex">
+									<div class="chip">
+			                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>
+			                            <strong>Participantes: <%= room.getAmountParticipants() %>/<%= room.getMaxAmountParticipants() %></strong></div>	
+									<div class="chip">
+										<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" /><path d="M16 3l0 4" /><path d="M8 3l0 4" /><path d="M4 11l16 0" /><path d="M8 15h2v2h-2z" /></svg>
+			                            <strong>Vencimiento: <%= room.getEndDateAsString() %></strong></div>
+				                </div>
 							</footer>
 						</article>
 					</a>

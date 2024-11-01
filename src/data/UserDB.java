@@ -26,8 +26,7 @@ public class UserDB {
 					String surname = rs.getString("surname");
 					String email = rs.getString("email");
 					String password = rs.getString("password");
-					boolean deleted = rs.getBoolean("deleted");
-					users.add(new User(id, name, surname, email, password, deleted));
+					users.add(new User(id, name, surname, email, password));
 				}
 				con.close();
 			} catch (SQLException e) {
@@ -56,8 +55,7 @@ public class UserDB {
 					String surname = rs.getString("surname");
 					String email = rs.getString("email");
 					String password = rs.getString("password");
-					boolean deleted = rs.getBoolean("deleted");
-					user = new User(id, name, surname, email, password, deleted);
+					user = new User(id, name, surname, email, password);
 				}
 				con.close();
 			} catch (SQLException e) {
@@ -87,9 +85,8 @@ public class UserDB {
 					String surname = rs.getString("surname");
 					String email = rs.getString("email");
 					String password = rs.getString("password");
-					boolean deleted = rs.getBoolean("deleted");
 					//System.out.println(deleted);
-					user = new User(id, name, surname, email, password, deleted);
+					user = new User(id, name, surname, email, password);
 				}
 				con.close();
 			} catch (SQLException e) {
@@ -102,7 +99,7 @@ public class UserDB {
 	}
 	
 	public void save(User u) {
-		String sqlSelect = "insert into users(name, surname, email, password, deleted) values(?, ?, ?, ?, ?)";
+		String sqlSelect = "insert into users(name, surname, email, password) values(?, ?, ?, ?)";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
 		
@@ -113,7 +110,6 @@ public class UserDB {
 				stm.setString(2, u.getSurname());
 				stm.setString(3, u.getEmail());
 				stm.setString(4, u.getPassword());
-				stm.setBoolean(5, u.isDeleted());
 				stm.executeUpdate();
 				con.close();
 			} catch (SQLException e) {
@@ -124,7 +120,7 @@ public class UserDB {
 	}
 	
 	public void delete(User u) {
-		String sqlSelect = "update users set deleted = 1 where id = ?";
+		String sqlSelect = "DELETE FROM users WHERE id = ?";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
 		

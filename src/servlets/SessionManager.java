@@ -65,7 +65,7 @@ public class SessionManager extends HttpServlet {
 				response.sendRedirect("index.jsp");
 			} else {
 				request.setAttribute("headTitle", "Register fallido");
-				request.setAttribute("bodyTitle", "El usuario ya existe o los campos de contraseña no son iguales");
+				request.setAttribute("bodyTitle", "El usuario ya existe o los campos tienen datos erroneos");
 				request.setAttribute("buttonAction", "signup.html");
 				request.setAttribute("buttonMessage", "Volver a intentar");
 				request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);

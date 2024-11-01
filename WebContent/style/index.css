@@ -1,3 +1,41 @@
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 576px) {
+    .flex {
+        align-items: start;
+        flex-direction: column;
+    }
+    .chip {
+        margin-right: 0;
+        margin-top: 5px;
+    }
+}
+
+.chip {
+    display: inline-block;
+    padding: 0 5px;
+    border-radius: 5px;
+    border: 1px solid var(--pico-form-element-border-color);
+    background-color: var(--pico-form-element-background-color);
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.chip strong {
+	color: var(--pico-form-element-color);
+}
+
+.chip .icon {
+    border-right: 1px solid var(--pico-form-element-placeholder-color);
+    color: var(--pico-form-element-placeholder-color);
+    margin-right: 5px;
+    padding-right: 5px;
+}
+
 .btn {
     margin-bottom: 20px;
     width: 100%;
@@ -23,40 +61,15 @@
     border-right: 1px solid var(--pico-muted-border-color);
 }
 
-.room-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .no-underline {
     text-decoration: none;
     color: inherit;
 }
 
-.room-details p {
-    margin: 0;
-    margin-right: 10px;
-}
-
-.completed progress {
-    display: flex;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-right: 20px;
-    color: white;
-}
-
-.participants strong {
-    margin-left: 5px;
-}
-
-.responsive-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 20px;
-}
-
-.responsive-grid article {
-    padding-bottom: 0;
+.dropdown-button {
+	text-align: left;
+	margin: 0;
+	padding: 0;
+	background-color: transparent;
+	border: none;
 }

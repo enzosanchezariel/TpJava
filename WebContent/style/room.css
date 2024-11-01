@@ -18,14 +18,20 @@
     display: inline-block;
     padding: 0 5px;
     border-radius: 5px;
-    border: 1px solid var(--pico-secondary);;
+    border: 1px solid var(--pico-form-element-border-color);
+    background-color: var(--pico-form-element-background-color);
     margin-right: 10px;
     display: flex;
     align-items: center;
 }
 
+.chip strong {
+	color: var(--pico-form-element-color);
+}
+
 .chip .icon {
-    border-right: 1px solid var(--pico-secondary);
+    border-right: 1px solid var(--pico-form-element-placeholder-color);
+    color: var(--pico-form-element-placeholder-color);
     margin-right: 5px;
     padding-right: 5px;
 }
@@ -33,4 +39,12 @@
 .no-underline {
     text-decoration: none;
     color: inherit;
+}
+
+.dropdown-button {
+	text-align: left;
+	margin: 0;
+	padding: 0;
+	background-color: transparent;
+	border: none;
 }

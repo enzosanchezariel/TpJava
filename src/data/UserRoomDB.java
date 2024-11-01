@@ -84,8 +84,7 @@ public class UserRoomDB {
 					String surname = rs.getString("surname");
 					String email = rs.getString("email");
 					String password = rs.getString("password");
-					boolean deleted = rs.getBoolean("deleted");
-					user = new User(id, name, surname, email, password, deleted);
+					user = new User(id, name, surname, email, password);
 				}
 				con.close();
 			} catch (SQLException e) {
