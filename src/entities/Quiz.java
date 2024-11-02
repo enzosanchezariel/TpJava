@@ -11,6 +11,7 @@ public class Quiz {
 	Topic topic;
 	ArrayList<Question> questions;
 	boolean deleted = false;
+	Room room;
 	
 	SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm");
 	
@@ -67,6 +68,14 @@ public class Quiz {
 
 	public void setQuestions(ArrayList<Question> questions) {
 		this.questions = questions;
+	}
+	
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
 	}
 
 	public Quiz() {}

@@ -51,8 +51,6 @@ public class RoomLogic {
 		ArrayList<Room> roomsFromDb = userRoomDB.getRoomsByUserId(u);
 		for (Room aRoom: roomsFromDb) {
 			if (aRoom.getId() == r.getId()) {
-				aRoom.setAdmin(getRoomAdmin(aRoom));
-				aRoom.setQuizzes(getRoomQuizzes(aRoom));
 				return aRoom;
 			}
 		}
