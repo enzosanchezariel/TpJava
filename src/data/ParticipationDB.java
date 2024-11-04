@@ -5,18 +5,15 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 import entities.Participation;
 import entities.Quiz;
-import entities.Room;
 import entities.User;
 
 public class ParticipationDB {
 	
 	public Participation getParticipationByUserAndQuiz(User u, Quiz q) {
 		Participation participation = null;
-		String sqlSelect = "SELECT * FROM answers WHERE user_id = ? AND quiz_id = ?";
+		String sqlSelect = "SELECT * FROM answers WHERE user_id = ? AND quizz_id = ?";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
 		
