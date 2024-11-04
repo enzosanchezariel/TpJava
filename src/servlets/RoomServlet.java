@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -56,6 +58,13 @@ public class RoomServlet extends HttpServlet {
 					// Puede que si encuentre la sala, pero la misma esté dada de baja
 					request.setAttribute("headTitle", "Sala eliminada");
 					request.setAttribute("bodyTitle", "La sala a la que intenta ingresar fue eliminada");
+					request.setAttribute("buttonAction", "index.jsp");
+					request.setAttribute("buttonMessage", "Aceptar");
+					request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
+				} else if (!foundRoom.isValid()) {
+					// Puede que la sala haya vencido
+					request.setAttribute("headTitle", "Sala vencida");
+					request.setAttribute("bodyTitle", "La sala a la que intenta ingresar ya venció");
 					request.setAttribute("buttonAction", "index.jsp");
 					request.setAttribute("buttonMessage", "Aceptar");
 					request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);

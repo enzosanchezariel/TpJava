@@ -79,7 +79,24 @@ public class Quiz {
 	}
 
 	public Quiz() {}
+	
+	public Quiz(int id) {
+		super();
+		this.id = id;
+	}
 
+	
+	public Quiz(int id, String name, Time maxDuration, Room room, Topic topic, boolean deleted, ArrayList<Question> questions) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.maxDuration = maxDuration;
+		this.questions = questions;
+		this.topic = topic;
+		this.deleted = deleted;
+		this.room = room;
+	}
+	
 	public Quiz(int id, String name, Time maxDuration, Topic topic, boolean deleted, ArrayList<Question> questions) {
 		super();
 		this.id = id;
