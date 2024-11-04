@@ -68,6 +68,7 @@ public class QuizServlet extends HttpServlet {
 						
 						if (foundParticipation == null && ongoingParticipation == null) {
 							ongoingParticipation = new Participation(user, foundQuiz, 0, Timestamp.from(Instant.now()));
+							participationLogic.saveParticipation(ongoingParticipation);
 							request.getSession().setAttribute("attempt", ongoingParticipation);
 							request.setAttribute("quiz", foundQuiz);
 							request.getRequestDispatcher("WEB-INF/quiz.jsp").forward(request, response);

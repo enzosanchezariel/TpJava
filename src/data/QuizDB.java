@@ -8,7 +8,5 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class QuizDB {
-
-	
-	// hacer despues 
+	// TODO: Enzo
 }

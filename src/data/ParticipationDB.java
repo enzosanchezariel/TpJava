@@ -20,30 +20,32 @@ public class ParticipationDB {
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
 		
-        try (PreparedStatement stmt = con.prepareStatement(sqlSelect)) {
-
-            stmt.setInt(1, u.getId()); 
-            stmt.setInt(2, q.getId()); 
-
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                participation = new Participation();
-                participation.setUser(u); 
-                participation.setQuiz(q); 
-                participation.setAmountRight(rs.getInt("amountRight"));
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+		if (con != null) {
+	        try {
+	        	PreparedStatement stmt = con.prepareStatement(sqlSelect);
+	            stmt.setInt(1, u.getId()); 
+	            stmt.setInt(2, q.getId()); 
+	
+	            ResultSet rs = stmt.executeQuery();
+	
+	            if (rs.next()) {
+	                participation = new Participation();
+	                participation.setUser(u); 
+	                participation.setQuiz(q); 
+	                participation.setAmountRight(rs.getInt("amountRight"));
+	
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+		}
 
         return participation;
 		
 		
 	}
 
-	
-	
-
+	public void saveParticipation(Participation p) {
+		// TODO: Leo
+	}
 }
