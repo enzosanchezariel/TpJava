@@ -49,7 +49,7 @@ public class UserRoomDB {
             	while (rs.next()) {
             		int id = rs.getInt("id");
     				String name = rs.getString("name");
-    				int code = rs.getInt("code");
+    				String code = rs.getString("code");
     				int amountParticipants = rs.getInt("amount_participants");
     				int maxAmountParticipants = rs.getInt("max_amount_participants");
     				Date initDate = rs.getDate("init_date");
@@ -93,5 +93,23 @@ public class UserRoomDB {
 		}
 		
 		return user;
+	}
+	
+	public void setRoomAdmin(User u, Room r) {
+		String sqlSelect = "UPDATE rooms SET admin = ? WHERE rooms.id = ?";
+		Connect connect = new Connect();
+		Connection con = connect.getConnection();
+		if (con != null) {
+			try {
+				PreparedStatement stm = con.prepareStatement(sqlSelect);
+				stm.setInt(1, u.getId());
+				stm.setInt(2, r.getId());	
+				stm.executeUpdate();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

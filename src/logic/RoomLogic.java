@@ -66,4 +66,22 @@ public class RoomLogic {
 		User admin = userRoomDB.getRoomAdmin(r);
 		return admin;
 	}
+	
+	public void setRoomAdmin(User u, Room r) {
+		userRoomDB.setRoomAdmin(u, r);
+	}
+	
+	public Room checkExistingRooms(Room r) {
+		ArrayList<Room> roomsFromDb = roomDB.getAll();
+		for (Room aRoom: roomsFromDb) {
+			if(aRoom.getCode().equals(r.getCode())) {
+				return aRoom;
+			}
+		}
+		return null;
+	}
+	
+	public void save(Room r) {
+		roomDB.save(r);
+	}
 }

@@ -12,7 +12,7 @@ import entities.Room;
 
 public class RoomDB {
 	public ArrayList<Room> getAll(){
-		String sqlSelect = "select * from rooms";
+		String sqlSelect = "select r.*, (SELECT COUNT(*) FROM users_rooms ur WHERE ur.room_id = r.id) AS amount_participants from rooms r";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
 		ArrayList<Room> rooms = new ArrayList<Room>();
@@ -24,7 +24,7 @@ public class RoomDB {
 				while (rs.next()) {
 					int id = rs.getInt("id");
 					String name = rs.getString("name");
-					int code = rs.getInt("code");
+					String code = rs.getString("code");
 					int amountParticipants = rs.getInt("amount_participants");
 					int maxAmountParticipants = rs.getInt("max_amount_participants");
 					Date initDate = rs.getDate("init_date");
@@ -56,7 +56,7 @@ public class RoomDB {
 				if (rs.next()) {
 					int id = rs.getInt("id");
 					String name = rs.getString("name");
-					int code = rs.getInt("code");
+					String code = rs.getString("code");
 					int amountParticipants = rs.getInt("amount_participants");
 					int maxAmountParticipants = rs.getInt("max_amount_participants");
 					Date initDate = rs.getDate("init_date");
@@ -84,12 +84,12 @@ public class RoomDB {
 		if (con != null) {
 			try {
 				PreparedStatement stm = con.prepareStatement(sqlSelect);
-	            stm.setInt(1, r.getCode());
+	            stm.setString(1, r.getCode());
 				ResultSet rs = stm.executeQuery();
 				if (rs.next()) {
 					int id = rs.getInt("id");
 					String name = rs.getString("name");
-					int code = rs.getInt("code");
+					String code = rs.getString("code");
 					int amountParticipants = rs.getInt("amount_participants");
 					int maxAmountParticipants = rs.getInt("max_amount_participants");
 					Date initDate = rs.getDate("init_date");
@@ -111,7 +111,7 @@ public class RoomDB {
 	
 	
 	public void save(Room r) {
-		String sqlSelect = "insert into rooms(name, code, amount_participants, max_amount_participants, init_date, end_date) values(?, ?, ?, ?, ?, ?)";
+		String sqlSelect = "insert into rooms(name, code, max_amount_participants, init_date, end_date, admin) values(?, ?, ?, ?, ?, ?)";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
 		
@@ -119,11 +119,11 @@ public class RoomDB {
 			try {
 				PreparedStatement stm = con.prepareStatement(sqlSelect);
 				stm.setString(1, r.getName());
-				stm.setInt(2, r.getCode());
-				stm.setInt(3, r.getAmountParticipants());
-				stm.setInt(4, r.getMaxAmountParticipants());
-				stm.setDate(5, r.getInitDate());
-				stm.setDate(6, r.getEndDate());			
+				stm.setString(2, r.getCode());
+				stm.setInt(3, r.getMaxAmountParticipants());
+				stm.setDate(4, r.getInitDate());
+				stm.setDate(5, r.getEndDate());
+				stm.setInt(6, r.getAdmin().getId());
 				stm.executeUpdate();
 				con.close();
 			} catch (SQLException e) {
@@ -159,7 +159,7 @@ public class RoomDB {
 			try {
 				PreparedStatement stm = con.prepareStatement(sqlSelect);
 				stm.setString(1, r.getName());
-				stm.setInt(2, r.getCode());
+				stm.setString(2, r.getCode());
 				stm.setInt(3, r.getAmountParticipants());
 				stm.setInt(4, r.getMaxAmountParticipants());
 				stm.setDate(5, r.getInitDate());			

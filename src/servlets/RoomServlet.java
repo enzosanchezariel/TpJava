@@ -71,17 +71,12 @@ public class RoomServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    RoomLogic roomLogic = new RoomLogic();
-	    Integer roomcode;
-	    Room room = new Room(); 
-
-	    try {
-	        roomcode = Integer.parseInt(request.getParameter("code"));
-	        room.setCode(roomcode);
-	    } catch (NumberFormatException e) {
-	        roomcode = null;
-	    }
-
 	    User usr = (User) request.getSession().getAttribute("user");
+    	String roomcode = (String) request.getParameter("code");
+	    Room room = new Room(); 
+	    room.setCode(roomcode);
+
+
 
 	    if (usr == null) {
 	        request.setAttribute("headTitle", "Acceso denegado");
@@ -92,7 +87,7 @@ public class RoomServlet extends HttpServlet {
 	        return;
 	    }
 
-	    if (roomcode == null) {
+	    if (roomcode == "") {
 	        response.sendRedirect("index.jsp");
 	        return;
 	    }
@@ -115,24 +110,24 @@ public class RoomServlet extends HttpServlet {
 	        request.setAttribute("buttonMessage", "Aceptar");
 	        request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
 	        return;
-	    }
-
-	    boolean possible = roomLogic.joinPossible(usr, foundRoom);
-
-	    if (!possible) {
-	        request.setAttribute("headTitle", "Sala encontrada");
-	        request.setAttribute("bodyTitle", "No es posible unirlo a la sala");
-	        request.setAttribute("buttonAction", "index.jsp");
-	        request.setAttribute("buttonMessage", "Aceptar");
-	        request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
-	        return;
-	    }
-
-	    roomLogic.addUserToRoom(usr, foundRoom);
-	    Room joinRoom = roomLogic.confirmAccess(usr, foundRoom);
-
-	    request.setAttribute("room", joinRoom);
-	    request.getRequestDispatcher("WEB-INF/room.jsp").forward(request, response);
+		}
+	
+		boolean possible = roomLogic.joinPossible(usr, foundRoom);
+	
+		if (!possible) {
+		request.setAttribute("headTitle", "Sala encontrada");
+		request.setAttribute("bodyTitle", "No es posible unirlo a la sala");
+		request.setAttribute("buttonAction", "index.jsp");
+		request.setAttribute("buttonMessage", "Aceptar");
+		request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
+		return;
+		}
+	
+		roomLogic.addUserToRoom(usr, foundRoom);
+		foundRoom.setAdmin(roomLogic.getRoomAdmin(foundRoom));
+		foundRoom.setQuizzes(roomLogic.getRoomQuizzes(foundRoom));
+	
+		request.setAttribute("room", foundRoom);
+		request.getRequestDispatcher("WEB-INF/room.jsp").forward(request, response);
 	}
-
 }

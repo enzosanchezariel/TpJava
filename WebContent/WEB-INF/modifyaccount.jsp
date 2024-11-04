@@ -12,7 +12,7 @@
 	<%
 		User usr = (User)request.getSession().getAttribute("user");
 	%>
-	<title>Ajustes de usurio</title>
+	<title>Ajustes de usuario</title>
 	
 	<script type="text/javascript">
 		function confirmDelete() {

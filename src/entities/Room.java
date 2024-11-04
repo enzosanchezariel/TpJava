@@ -9,7 +9,7 @@ import java.sql.Date;
 public class Room {
 	private int id;
 	private String name;
-	private int code;
+	private String code;
 	private int amountParticipants;
 	private int maxAmountParticipants;
 	private Date initDate;
@@ -69,11 +69,11 @@ public class Room {
 		this.id = id;
 	}
 
-	public int getCode() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setCode(int code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 
@@ -130,7 +130,7 @@ public class Room {
 
 	public Room() {}
 
-	public Room(int id, String name, int code, int amountParticipants, int maxAmountParticipants, Date initDate, Date endDate, boolean deleted) {
+	public Room(int id, String name, String code, int amountParticipants, int maxAmountParticipants, Date initDate, Date endDate, boolean deleted) {
 		super();
 		this.name = name;
 		this.id = id;

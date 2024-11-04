@@ -93,8 +93,8 @@
 	                        <footer>
 	                        	<form action="room" method="post">
 	                        		<fieldset role="group">
-	                            		<input type="text" name="code" placeholder="Código" aria-label="Text"/>
-	                            		<button type="submit">Buscar</button>
+	                            		<input type="text" maxlength="36" name="code" placeholder="Código" aria-label="Text"/>
+	                            		<button type="submit">Ingresar</button>
 	                            	</fieldset>
 	                        	</form>
 	                        </footer>
@@ -103,7 +103,11 @@
 	                <div>
 	                    <article>
 	                        <strong>Crea una sala</strong>
-	                        <footer><button type="submit">Crear</button></footer>
+	                        <footer>
+	                        	<form action="createroom" method="get">
+	                        		<button type="submit">Crear</button>
+	                        	</form>
+                        	</footer>
 	                    </article>
 	                </div>
 	            </div>
