@@ -29,7 +29,9 @@ public class Topic {
 		this.deleted = deleted;
 	}
 	
-	public Topic() {}
+	public Topic(int topicId) {
+		this.id = id;
+	}
 	
 	public Topic(int id, String name) {
 		this.id = id;

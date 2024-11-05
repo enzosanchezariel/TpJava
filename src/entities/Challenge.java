@@ -1,9 +1,11 @@
 package entities;
+import entities.Topic;
 
 public class Challenge {
-	int idChallenge;
-	String nameChallenge;
-	int amountQuestions;
+	private int idChallenge;
+	private String nameChallenge;
+	private int amountQuestions;
+	private Topic topic;
 	
 	public int getIdChallenge() {
 		return idChallenge;
@@ -23,14 +25,21 @@ public class Challenge {
 	public void setAmountQuestions(int amountQuestions) {
 		this.amountQuestions = amountQuestions;
 	}
+
 	
 	
-	public Challenge() {}
+	public Topic getTopic() {
+		return topic;
+	}
+	public void setTopic(Topic topic) {
+		this.topic = topic;
+	}
 	
-	public Challenge (int idChallenge, String nameChallenge, int amountQuestions) {
+	public Challenge (int idChallenge, String nameChallenge, int amountQuestions, Topic topic) {
 		this.idChallenge = idChallenge;
 		this.nameChallenge = nameChallenge;
 		this.amountQuestions = amountQuestions;
+		this.topic = topic; 
 	}
 	
 }
