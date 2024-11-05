@@ -43,7 +43,7 @@ public class RoomDB {
 	}
 	
 	public Room getById(Room r) {
-		String sqlSelect = "select * from rooms where id = ?";
+		String sqlSelect = "SELECT r.*, (SELECT COUNT(*) FROM users_rooms ur WHERE ur.room_id = r.id) AS amount_participants FROM rooms r WHERE r.id = ?";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
 		Room room = null;

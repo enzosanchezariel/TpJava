@@ -48,7 +48,7 @@ public class QuizServlet extends HttpServlet {
 			if (user != null) {
 				// Busca Quiz con su Room con el id del Quiz
 				QuizLogic quizLogic = new QuizLogic();
-				Quiz foundQuiz = quizLogic.getById();
+				Quiz foundQuiz = quizLogic.getById(new Quiz(id));
 				
 				// Verifica que haya encontrado el Quiz, que el mismo no este dado de baja y que su Room tampoco
 				if (foundQuiz != null && !foundQuiz.isDeleted() && !foundQuiz.getRoom().isDeleted()) {

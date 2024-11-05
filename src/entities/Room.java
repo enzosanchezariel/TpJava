@@ -142,6 +142,8 @@ public class Room {
 		this.deleted = deleted;
 	}
 
+	public boolean isValid() {
+		return endDate.after( new Date(System.currentTimeMillis() ));
+	}
 
-	
 }

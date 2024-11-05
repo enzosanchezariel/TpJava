@@ -69,7 +69,7 @@
            <hr/>
 		<h3>Formularios disponibles</h3>
            <% for (Quiz quiz : room.getQuizzes()) { if (!quiz.isDeleted()){%>
-            <a href="#" class="secondary no-underline">
+            <a href="quiz?id=<%=quiz.getId()%>" class="secondary no-underline">
                 <article>
                     <strong><%= quiz.getName() %></strong>
 	                <footer>

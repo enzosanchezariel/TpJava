@@ -114,7 +114,7 @@
 	            <hr />
 				<h3>Salas disponibles</h3>
 	            <div class="responsive-grid">
-	            	<% for (Room room : usr.getRooms()) { if (!room.isDeleted()){%>
+	            	<% for (Room room : usr.getRooms()) { if (!room.isDeleted() && room.isValid()) {%>
 	            	<a href="room?id=<%=room.getId()%>" class="secondary no-underline">
 						<article>
 							<div class="room-title">
