@@ -34,8 +34,7 @@ public class QuizDB {
             		Time maxDuration = rs.getTime("max_duration");
             		boolean deleted = rs.getBoolean("deleted");
             		
-            		Topic topic = new Topic();
-            		topic.setId(rs.getInt("topic_id"));
+            		Topic topic = new Topic(rs.getInt("topic_id"));
             		
             		Room room = new Room();
 					room.setId(rs.getInt("room_id"));

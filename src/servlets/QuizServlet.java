@@ -3,6 +3,9 @@ package servlets;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.Participation;
+import entities.Question;
 import entities.Quiz;
+import entities.Response;
 import entities.User;
 import logic.ParticipationLogic;
 import logic.QuizLogic;
@@ -64,10 +69,11 @@ public class QuizServlet extends HttpServlet {
 						
 						if (ongoingParticipation != null && !ongoingParticipation.isValid()) {
 							request.getSession().removeAttribute("attempt");
+							ongoingParticipation = null;
 						}
 						
 						if (foundParticipation == null && ongoingParticipation == null) {
-							ongoingParticipation = new Participation(user, foundQuiz, 0, Timestamp.from(Instant.now()));
+							ongoingParticipation = new Participation(user, foundQuiz, 0, LocalDateTime.now() );
 							participationLogic.saveParticipation(ongoingParticipation);
 							request.getSession().setAttribute("attempt", ongoingParticipation);
 							request.setAttribute("quiz", foundQuiz);
@@ -85,8 +91,8 @@ public class QuizServlet extends HttpServlet {
 							} else {
 								request.setAttribute("headTitle", "Acceso denegado");
 								request.setAttribute("bodyTitle", "Usted ya intentó este cuestionario");
-								request.setAttribute("buttonAction", "room?id=" + ongoingParticipation.getQuiz().getRoom().getId());
-								request.setAttribute("buttonMessage", "Ir al cuestionario");
+								request.setAttribute("buttonAction", "room?id=" + foundQuiz.getRoom().getId());
+								request.setAttribute("buttonMessage", "Volver a la sala");
 								request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
 							}
 						}
@@ -118,9 +124,44 @@ public class QuizServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Recibe los indices de las preguntas, cada una junto con un int que indica la respuesta
 		
-		doGet(request, response);
+		Participation ongoingParticipation = (Participation) request.getSession().getAttribute("attempt");
+		
+		if (ongoingParticipation != null && ongoingParticipation.isValid()) {
+			
+			ParticipationLogic participationLogic = new ParticipationLogic();
+			
+			// Construcción de ArrayList<Integer> de las respuestas
+			ArrayList<Response> quizResponses = new ArrayList<Response>();
+			Integer questionIndex = 0;
+			
+			for (Question question : ongoingParticipation.getQuiz().getQuestions()) {
+				try {
+					quizResponses.add(new Response(question, Integer.parseInt(request.getParameter(questionIndex.toString())) ));
+				} catch (Exception e) {
+					quizResponses.add(new Response(question, -1));
+				}
+				questionIndex++;
+			}
+			
+			// Cálculo respuestas correctas
+			int amountRight = 0;
+			for (Response quizResponse : quizResponses) {
+				if (quizResponse.isCorrect()) {
+					amountRight++;
+				}
+			}
+			ongoingParticipation.setAmountRight(amountRight);
+			participationLogic.updateParticipation(ongoingParticipation);
+			request.getSession().removeAttribute("attempt");
+			ongoingParticipation = null;
+		} else {
+			request.setAttribute("headTitle", "Respuesta no registrada");
+			request.setAttribute("bodyTitle", "El intento expiró y no se registró su respuesta");
+			request.setAttribute("buttonAction", "index.jsp");
+			request.setAttribute("buttonMessage", "Aceptar");
+			request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
+		}
 	}
 
 }

@@ -21,5 +21,9 @@ public class ParticipationLogic {
 	public void saveParticipation(Participation p) {
 		participationDB.saveParticipation(p);
 	}
+	
+	public void updateParticipation(Participation p) {
+		participationDB.update(p);
+	}
 
 }

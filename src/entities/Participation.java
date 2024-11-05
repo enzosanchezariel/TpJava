@@ -1,8 +1,9 @@
 package entities;
 
-import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Participation {
 	
@@ -15,7 +16,7 @@ public class Participation {
 	// No hace falta guardar attemptDateAndHour en la bdd.
 	// Es nomas para verificar el tiempo que le queda al usuario para terminar el Quiz.
 	// Bah, si quieren pueden hacerlo.
-	Timestamp attemptDateAndHour;
+	LocalDateTime attemptDateAndHour;
 
 	public User getUser() {
 		return user;
@@ -41,17 +42,17 @@ public class Participation {
 		this.amountRight = amountRight;
 	}
 
-	public Timestamp getAttemptDateAndHour() {
+	public LocalDateTime getAttemptDateAndHour() {
 		return attemptDateAndHour;
 	}
 
-	public void setAttemptDateAndHour(Timestamp attemptDateAndHour) {
+	public void setAttemptDateAndHour(LocalDateTime attemptDateAndHour) {
 		this.attemptDateAndHour = attemptDateAndHour;
 	}
 
 	public Participation() {}
 	
-	public Participation(User user, Quiz quiz, int amountRight, Timestamp attemptDateAndHour) {
+	public Participation(User user, Quiz quiz, int amountRight, LocalDateTime attemptDateAndHour) {
 		super();
 		this.user = user;
 		this.quiz = quiz;
@@ -60,12 +61,11 @@ public class Participation {
 	}
 	
 	public boolean isValid() {
-		long maxDurationInMillis = quiz.getMaxDuration().getTime();
+		LocalDateTime attDT = attemptDateAndHour;
+		LocalTime durDT = quiz.getMaxDuration().toLocalTime();
 		
-		Timestamp attemptEndTime = new Timestamp(attemptDateAndHour.getTime() + maxDurationInMillis);
+		LocalDateTime endDT = attDT.plusHours(durDT.getHour()).plusMinutes(durDT.getMinute()).plusSeconds(durDT.getSecond());
 		
-		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-		
-		return currentTime.before(attemptEndTime);
+		return LocalDateTime.now().isBefore(endDT);
 	}
 }

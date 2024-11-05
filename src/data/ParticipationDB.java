@@ -43,6 +43,42 @@ public class ParticipationDB {
 	}
 
 	public void saveParticipation(Participation p) {
-		// TODO: Leo
+		String sqlSelect = "insert into answers(user_id, quizz_id, amountRight) values(?, ?, ?)";
+		Connect connect = new Connect();
+		Connection con = connect.getConnection();
+		
+		if (con != null) {
+			try {
+				PreparedStatement stm = con.prepareStatement(sqlSelect);
+				stm.setInt(1, p.getUser().getId());
+				stm.setInt(2, p.getQuiz().getId());
+				stm.setInt(3, p.getAmountRight());
+				stm.executeUpdate();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void update(Participation p) {
+		String sqlSelect = "UPDATE answers SET amountRight = ? WHERE (user_id = ?) and (quizz_id = ?)";
+		Connect connect = new Connect();
+		Connection con = connect.getConnection();
+		
+		if (con != null) {
+			try {
+				PreparedStatement stm = con.prepareStatement(sqlSelect);
+				stm.setInt(1, p.getAmountRight());
+				stm.setInt(2, p.getUser().getId());
+				stm.setInt(3, p.getQuiz().getId());
+				stm.executeUpdate();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

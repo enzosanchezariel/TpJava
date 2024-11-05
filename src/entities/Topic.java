@@ -29,7 +29,9 @@ public class Topic {
 		this.deleted = deleted;
 	}
 	
-	public Topic(int topicId) {
+	public Topic() {}
+	
+	public Topic(int id) {
 		this.id = id;
 	}
 	

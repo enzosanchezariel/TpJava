@@ -11,8 +11,8 @@
 		<title>Quiz</title>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
 		<%
-			Quiz quiz = (Quiz)request.getAttribute("quiz");
 			Participation participation = (Participation)request.getSession().getAttribute("attempt");
+			Quiz quiz = participation.getQuiz();
 		%>
 	</head>
 	<body>
@@ -33,7 +33,7 @@
 						<footer>
 							<fieldset>
 								<legend>Seleccione una opción:</legend>
-								<% int optionIndex = 0; %>
+								<% int optionIndex = 1; %>
 								<% for (String option : question.getOptions()) { %>
 									<label>
 										<input type="radio" name="<%= questionIndex %>" value="<%= optionIndex %>" required/>
