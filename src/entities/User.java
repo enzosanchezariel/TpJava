@@ -9,6 +9,7 @@ public class User {
 	private String email;
 	private String password;
 	private ArrayList<Room> rooms;
+	private Integer role = 0;
 	
 	public ArrayList<Room> getRooms() {
 		return rooms;
@@ -44,6 +45,15 @@ public class User {
 		this.id = userId;
 		this.name = name;
 		this.surname = surname;
+	}
+	
+	public User(Integer id, String name, String surname, String email, String password, Integer role) {
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.email = email;
+		this.password = password;
+		this.role  = role;
 	}
 
 	public Integer getId() {
@@ -84,6 +94,18 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public Integer getRole() {
+		return role;
+	}
+
+	public void setRole(Integer role) {
+		this.role = role;
+	}
+	
+	public boolean isAdmin() {
+		return role == 1;
 	}
 	
 }
