@@ -2,11 +2,13 @@ package logic;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import data.RoomDB;
 import data.RoomQuizDB;
 import data.UserRoomDB;
 import entities.Quiz;
+import entities.RankedUser;
 import entities.Room;
 import entities.User;
 
@@ -84,4 +86,8 @@ public class RoomLogic {
 	public void save(Room r) {
 		roomDB.save(r);
 	}
+	
+    public List<RankedUser> getRanking(Room room) {
+        return RoomDB.getUsersbyRanking(room);
+    }
 }

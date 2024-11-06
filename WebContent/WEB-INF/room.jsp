@@ -1,6 +1,8 @@
 <%@ page import="entities.Room" %>
 <%@ page import="entities.User" %>
 <%@ page import="entities.Quiz" %>
+<%@ page import="entities.RankedUser" %>
+<%@ page import="java.util.List" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -15,6 +17,7 @@
 	<%
 		Room room = (Room)request.getAttribute("room");
 		User usr = (User)request.getSession().getAttribute("user");
+		List<RankedUser> rankedUsers = (List<RankedUser>) request.getAttribute("rankedUsers"); 
 	%>
 	<title><%=room.getName()%></title>
 </head>
@@ -90,6 +93,39 @@
    				<strong>No hay formularios</strong>
    			</article>
    		<% } %>
+   		
+	<details>
+    	<summary role="button">Mostrar Ranking</summary>
+    	<table>
+        	<thead>
+            	<tr>
+                	<th>Posición</th>
+                	<th>Nombre</th>
+                	<th>Puntos</th>
+            	</tr>
+        	</thead>
+        	<tbody>
+            	<% 
+            	int position = 1;  
+            	if (rankedUsers != null && !rankedUsers.isEmpty()) { 
+            	%>
+                	<% for (RankedUser rankedUser : rankedUsers) { %>
+                    	<tr>
+                        	<td><%= position++ %></td>
+                        	<td><%= rankedUser.getUser().getName() %> <%= rankedUser.getUser().getSurname() %></td>
+                        	<td><%= rankedUser.getTotalPoints() %></td>
+                    	</tr>
+                	<% } %>
+            	<% } else { %>
+                	<tr>
+                    	<td colspan="3">No hay usuarios en el ranking</td>
+                	</tr>
+            	<% } %>
+        	</tbody>
+    	</table>
+	</details>
+   		
 	</main>
+
 </body>
 </html>

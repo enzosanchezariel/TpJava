@@ -176,7 +176,7 @@ public class RoomDB {
 	}
 	
 	
-	public ArrayList<RankedUser> getUserbyRanking(Room r) {
+	public static  ArrayList<RankedUser> getUsersbyRanking(Room r) {
 	    ArrayList<RankedUser> rankedUsers = new ArrayList<>();
 	    String sqlSelect = "SELECT u.id, u.name, u.surname, SUM(a.amountRight) AS totalPuntos "
 	                     + "FROM users u "
@@ -192,7 +192,7 @@ public class RoomDB {
 	    if (con != null) {
 	        try {
 	            PreparedStatement stm = con.prepareStatement(sqlSelect);
-	            stm.setInt(1, r.getId());  // Setear el room_id aquí
+	            stm.setInt(1, r.getId()); 
 	            ResultSet rs = stm.executeQuery();
 	            
 	            while (rs.next()) {
@@ -200,18 +200,17 @@ public class RoomDB {
 	                String name = rs.getString("name");
 	                String surname = rs.getString("surname");
 	                int totalScore = rs.getInt("totalPuntos");
-	                
 	                User user = new User(userId, name, surname);
 	                RankedUser rankedUser = new RankedUser(user, totalScore);
 	                rankedUsers.add(rankedUser);
 	            }
-	            rs.close();  // Cerrar ResultSet
-	            stm.close(); // Cerrar PreparedStatement
+	            rs.close();
+	            stm.close(); 
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        } finally {
 	            try {
-	                con.close();  // Asegurarse de cerrar la conexión
+	                con.close();
 	            } catch (SQLException e) {
 	                e.printStackTrace();
 	            }
