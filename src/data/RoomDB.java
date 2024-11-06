@@ -7,8 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
+import entities.RankedUser;
 import entities.Room;
+import entities.User;
 
 public class RoomDB {
 	public ArrayList<Room> getAll(){
@@ -172,5 +173,51 @@ public class RoomDB {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	
+	public ArrayList<RankedUser> getUserbyRanking(Room r) {
+	    ArrayList<RankedUser> rankedUsers = new ArrayList<>();
+	    String sqlSelect = "SELECT u.id, u.name, u.surname, SUM(a.amountRight) AS totalPuntos "
+	                     + "FROM users u "
+	                     + "INNER JOIN answers a ON a.user_id = u.id "
+	                     + "INNER JOIN quizzes q ON q.id = a.quizz_id "
+	                     + "WHERE q.room_id = ? "
+	                     + "GROUP BY u.id "
+	                     + "ORDER BY totalPuntos DESC";
+	    
+	    Connect connect = new Connect();
+	    Connection con = connect.getConnection();
+	    
+	    if (con != null) {
+	        try {
+	            PreparedStatement stm = con.prepareStatement(sqlSelect);
+	            stm.setInt(1, r.getId());  // Setear el room_id aquí
+	            ResultSet rs = stm.executeQuery();
+	            
+	            while (rs.next()) {
+	                int userId = rs.getInt("id");
+	                String name = rs.getString("name");
+	                String surname = rs.getString("surname");
+	                int totalScore = rs.getInt("totalPuntos");
+	                
+	                User user = new User(userId, name, surname);
+	                RankedUser rankedUser = new RankedUser(user, totalScore);
+	                rankedUsers.add(rankedUser);
+	            }
+	            rs.close();  // Cerrar ResultSet
+	            stm.close(); // Cerrar PreparedStatement
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        } finally {
+	            try {
+	                con.close();  // Asegurarse de cerrar la conexión
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+	    
+	    return rankedUsers;
 	}
 }

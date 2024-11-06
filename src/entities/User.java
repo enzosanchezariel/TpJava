@@ -40,6 +40,12 @@ public class User {
 		this.password = password;
 	}
 
+	public User(int userId, String name, String surname) {
+		this.id = userId;
+		this.name = name;
+		this.surname = surname;
+	}
+
 	public Integer getId() {
 		return id;
 	}
