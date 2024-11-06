@@ -107,4 +107,37 @@ public class QuizDB {
 		
 		return options;
 	}
+	
+	
+	public Quiz save(Quiz q) {
+	    String sqlInsert = "INSERT INTO quizzes(name, max_duration, room_id, topic_id) VALUES(?, ?, ?, ?)";
+	    Connect connect = new Connect();
+	    Connection con = connect.getConnection();
+	    Quiz savedQuiz = new Quiz();
+	    if (con != null) {
+	        try {
+	            PreparedStatement stm = con.prepareStatement(sqlInsert, PreparedStatement.RETURN_GENERATED_KEYS);
+	            stm.setString(1, q.getName());
+	            stm.setTime(2, q.getMaxDuration());
+	            stm.setInt(3, q.getRoom().getId());
+	            stm.setInt(4, q.getTopic().getId());
+	            stm.executeUpdate();
+	            ResultSet rs = stm.getGeneratedKeys();
+	            if (rs.next()) {
+	                int generatedId = rs.getInt(1);
+	                savedQuiz.setId(generatedId);
+	                savedQuiz.setName(q.getName());
+	                savedQuiz.setMaxDuration(q.getMaxDuration());
+	                savedQuiz.setRoom(q.getRoom());
+	                savedQuiz.setTopic(q.getTopic());
+	            }
+	            
+	            con.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return savedQuiz;
+	}
+	
 }

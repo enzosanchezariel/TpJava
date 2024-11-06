@@ -36,7 +36,7 @@ public class CreateRoomServlet extends HttpServlet {
 		User usr = (User) request.getSession().getAttribute("user");
 		if (usr == null) {
 	        request.setAttribute("headTitle", "Acceso denegado");
-	        request.setAttribute("bodyTitle", "Debe iniciar sesión para entrar a una sala");
+	        request.setAttribute("bodyTitle", "Debe iniciar sesión para crear a una sala");
 	        request.setAttribute("buttonAction", "login.html");
 	        request.setAttribute("buttonMessage", "Iniciar sesión");
 	        request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
@@ -50,18 +50,25 @@ public class CreateRoomServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User usr = (User) request.getSession().getAttribute("user");
+		
+		if (usr == null) {
+	        request.setAttribute("headTitle", "Acceso denegado");
+	        request.setAttribute("bodyTitle", "La sesión expiró");
+	        request.setAttribute("buttonAction", "login.html");
+	        request.setAttribute("buttonMessage", "Iniciar sesión");
+	        request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
+	        return;
+	    }
+		
 		RoomLogic roomLogic = new RoomLogic();
     	Room room = new Room(); 
 		Integer maxAmountParticipants;
 		String roomcode = request.getParameter("code");
     	String roomname = request.getParameter("name");
-    	String endDateStr = request.getParameter("endDate");
-    	LocalDate localDate = LocalDate.parse(endDateStr);
-    	Date endDate = Date.valueOf(localDate);
+    	Date endDate = Date.valueOf(request.getParameter("endDate"));
     	room.setEndDate(endDate);
     	room.setName(roomname);
     	room.setCode(roomcode);
-    	room.setAdmin(usr);
     	room.setInitDate(new Date(System.currentTimeMillis()));
     	try {
     		maxAmountParticipants = Integer.parseInt(request.getParameter("maxAmountParticipants"));
@@ -84,10 +91,12 @@ public class CreateRoomServlet extends HttpServlet {
     	if (existingRoom != null) {
     		request.setAttribute("room", existingRoom);
     		request.getRequestDispatcher("WEB-INF/joinexistingroom.jsp").forward(request, response);
+    		return;
     	}
     	
     	roomLogic.save(room);
     	Room createdRoom = roomLogic.getRoomByCode(room);
+    	roomLogic.setRoomAdmin(usr, createdRoom);
     	roomLogic.addUserToRoom(usr, createdRoom);
     	request.setAttribute("headTitle", "Sala creada");
         request.setAttribute("bodyTitle", "La sala ha sido creada con éxito");

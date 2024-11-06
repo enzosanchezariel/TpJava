@@ -9,7 +9,16 @@ public class Question {
     private String questionText;
     private int correctAnswer;
     private ArrayList<String> options;
+    private Quiz quiz;
     
+	public Quiz getQuiz() {
+		return quiz;
+	}
+
+	public void setQuiz(Quiz quiz) {
+		this.quiz = quiz;
+	}
+
 	public int getId() {
 		return id;
 	}
