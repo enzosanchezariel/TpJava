@@ -27,6 +27,10 @@ public class RoomLogic {
 		}
 	}
 	
+	public Room getRoomById(Room r) {
+		return roomDB.getById(r);
+	}
+	
 	public boolean joinPossible(User u, Room r) {
 		ArrayList<Room> roomsFromDb = userRoomDB.getRoomsByUserId(u);
 		for (Room aRoom: roomsFromDb) {
@@ -42,6 +46,10 @@ public class RoomLogic {
 	
 	public void addUserToRoom(User u, Room r) {
 		userRoomDB.addUserToRoom(u, r);;
+	}
+	
+	public void removeUserFromRoom(User u, Room r) {
+		userRoomDB.removeUserFromRoom(u, r);
 	}
 	
 	public ArrayList<Room> getRoomsByUser(User user){
@@ -90,4 +98,8 @@ public class RoomLogic {
     public List<RankedUser> getRanking(Room room) {
         return RoomDB.getUsersbyRanking(room);
     }
+
+	public void delete(Room r) {
+		roomDB.delete(r);
+	}
 }

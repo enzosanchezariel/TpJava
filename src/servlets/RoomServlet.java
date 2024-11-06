@@ -145,6 +145,9 @@ public class RoomServlet extends HttpServlet {
 		foundRoom.setAdmin(roomLogic.getRoomAdmin(foundRoom));
 		foundRoom.setQuizzes(roomLogic.getRoomQuizzes(foundRoom));
 	
+		List<RankedUser> rankedUsers = roomLogic.getRanking(foundRoom);
+        request.setAttribute("rankedUsers", rankedUsers);
+		
 		request.setAttribute("room", foundRoom);
 		request.getRequestDispatcher("WEB-INF/room.jsp").forward(request, response);
 	}

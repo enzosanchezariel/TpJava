@@ -11,13 +11,14 @@ import entities.Topic;
 import entities.User;
 import logic.TopicLogic;
 
-@WebServlet({ "/Topics", "/topics", "/TOPICS", "/Topic", "/topic", "/TOPIC" })
-public class TopicsServlet extends HttpServlet {
+@WebServlet({ "/Challenges", "/challenges", "/CHALLENGES", "/challenge", "/Challenge", "/CHALLENGE" })
+public class ChallengesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    public TopicsServlet() {
+	
+    public ChallengesServlet() {
         super();
     }
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
 		TopicLogic topicLogic = new TopicLogic();

@@ -112,4 +112,22 @@ public class UserRoomDB {
 			}
 		}
 	}
+
+	public void removeUserFromRoom(User u, Room r) {
+		String sqlSelect = "DELETE FROM users_rooms WHERE user_id = ? and room_id = ?";
+        Connect connect = new Connect();
+        Connection con = connect.getConnection();
+        
+        if (con != null) {
+        	try {
+            	PreparedStatement stm = con.prepareStatement(sqlSelect);
+                stm.setInt(1, u.getId());
+                stm.setInt(2, r.getId());
+                stm.executeUpdate();
+                con.close();
+            } catch(SQLException e){
+            	e.printStackTrace();
+            }
+		}
+	}
 }

@@ -14,11 +14,27 @@
 	<link rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
 	<link rel="stylesheet" type="text/css" href="style/room.css" />
+	
 	<%
 		Room room = (Room)request.getAttribute("room");
 		User usr = (User)request.getSession().getAttribute("user");
 		List<RankedUser> rankedUsers = (List<RankedUser>) request.getAttribute("rankedUsers"); 
 	%>
+	
+	<script type="text/javascript">
+		function confirmLeave() {
+	        if (confirm(
+	        		<% if (room.getAdmin() != null && usr.getId() == room.getAdmin().getId()) {%>
+						"¿Estás seguro de que deseas borrar la sala? Esta acción no se puede deshacer."
+					<% } else { %>
+						"¿Estás seguro de que deseas salir de la sala?"
+					<% } %>
+	        		)) {
+	            document.getElementById("leaveForm").submit();
+	        }
+	    }
+	</script>
+	
 	<title><%=room.getName()%></title>
 </head>
 <body>
@@ -124,7 +140,19 @@
         	</tbody>
     	</table>
 	</details>
-   		
+	
+	<form action="leavedeleteroom" method="post" id="leaveForm">
+		<input type="hidden" name="id" value="<%= room.getId() %>">
+	</form>
+   	
+	<button type="button" onclick="confirmLeave()" style="background-color: #D93526; border-color:#D93526">
+		<% if (room.getAdmin() != null && usr.getId() == room.getAdmin().getId()) {%>
+			Eliminar sala
+		<% } else { %>
+			Salir de la sala
+		<% } %>
+	</button>
+   	
 	</main>
 
 </body>
