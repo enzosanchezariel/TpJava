@@ -143,6 +143,12 @@
 	        		<footer>Para crear o unirse a una sala, debe tener una cuenta e iniciar sesión.</footer>
 	        	</article>
 	        <%}%>
+	        
+	        <% if (usr != null && usr.isAdmin()) { %>
+	        	<a href="topics"><button>Configurar temas</button></a>
+	        	<a href="challenges"><button>Configurar desafíos</button></a>
+	        	<a href="ranks"><button>Configurar rangos</button></a>
+	        <% } %>
 		</main>
 	</body>
 </html>
