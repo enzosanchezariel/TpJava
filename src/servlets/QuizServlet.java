@@ -144,6 +144,9 @@ public class QuizServlet extends HttpServlet {
 				questionIndex++;
 			}
 			
+			request.setAttribute("result", quizResponses);
+			request.setAttribute("room", ongoingParticipation.getQuiz().getRoom().getId());
+			
 			// Cálculo respuestas correctas
 			int amountRight = 0;
 			for (Response quizResponse : quizResponses) {
@@ -155,6 +158,8 @@ public class QuizServlet extends HttpServlet {
 			participationLogic.updateParticipation(ongoingParticipation);
 			request.getSession().removeAttribute("attempt");
 			ongoingParticipation = null;
+			
+			request.getRequestDispatcher("WEB-INF/quizresult.jsp").forward(request, response);
 		} else {
 			request.setAttribute("headTitle", "Respuesta no registrada");
 			request.setAttribute("bodyTitle", "El intento expiró y no se registró su respuesta");
