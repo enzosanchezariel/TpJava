@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `tp_java` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE  IF NOT EXISTS `tp_java` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `tp_java`;
 -- MySQL dump 10.13  Distrib 8.0.39, for Linux (x86_64)
 --
--- Host: localhost    Database: tp_java
+-- Host: 127.0.0.1    Database: tp_java
 -- ------------------------------------------------------
 -- Server version	8.0.39
 
@@ -41,6 +41,7 @@ CREATE TABLE `answers` (
 
 LOCK TABLES `answers` WRITE;
 /*!40000 ALTER TABLE `answers` DISABLE KEYS */;
+INSERT INTO `answers` VALUES (6,1,2);
 /*!40000 ALTER TABLE `answers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,7 +212,7 @@ CREATE TABLE `rooms` (
 
 LOCK TABLES `rooms` WRITE;
 /*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
-INSERT INTO `rooms` VALUES (1,'Meta minds',123123,20,'2024-10-07','2024-11-07',0,2),(2,'Cine Argentino',232425,25,'2024-11-01','2024-12-01',0,1),(3,'Sala con admin que eliminó su cuenta',324565,10,'2024-10-31','2024-11-30',0,NULL);
+INSERT INTO `rooms` VALUES (1,'Meta minds','123123',20,'2024-10-07','2024-11-07',0,2),(2,'Cine Argentino','232425',25,'2024-11-01','2024-12-01',0,1),(3,'Sala con admin que eliminó su cuenta','324565',10,'2024-10-31','2024-11-30',0,NULL);
 /*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -253,9 +254,10 @@ CREATE TABLE `users` (
   `surname` varchar(45) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `role` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -264,7 +266,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Ricardo','Darín','darin.carp@gmail.com','asdasd'),(2,'Mark','Zuckerberg','area51.boy@meta.com','dadada'),(3,'Gustavo','Cerati','gustavo.stereo@outlook.com','americanBlind'),(4,'Diego','Maradona','d10.maradona@hotmail.com','footballHigh'),(5,'Mario','Bros','itsame.mario@yahoo.com','solong'),(6,'Enzo','Sánchez','enzo.sanchez.ariel@gmail.com','asdasd');
+INSERT INTO `users` VALUES (1,'Ricardo','Darín','darin.carp@gmail.com','asdasd',0),(2,'Mark','Zuckerberg','area51.boy@meta.com','dadada',0),(3,'Gustavo','Cerati','gustavo.stereo@outlook.com','americanBlind',0),(4,'Diego','Maradona','d10.maradona@hotmail.com','footballHigh',0),(5,'Mario','Bros','itsame.mario@yahoo.com','solong',0),(6,'Enzo','Sánchez','enzo.sanchez.ariel@gmail.com','asdasd',1),(7,'Donald','Trump','donald.trump@usa.usa','WallLover',0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -291,7 +293,7 @@ CREATE TABLE `users_rooms` (
 
 LOCK TABLES `users_rooms` WRITE;
 /*!40000 ALTER TABLE `users_rooms` DISABLE KEYS */;
-INSERT INTO `users_rooms` VALUES (1,1),(2,1),(1,2),(6,3);
+INSERT INTO `users_rooms` VALUES (1,1),(2,1),(6,1),(1,2),(6,3);
 /*!40000 ALTER TABLE `users_rooms` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -304,4 +306,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-31 20:07:37
+-- Dump completed on 2024-11-06 16:44:05

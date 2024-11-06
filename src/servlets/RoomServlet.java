@@ -2,6 +2,8 @@ package servlets;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import data.RoomDB;
+import entities.RankedUser;
 import entities.Room;
 import entities.User;
 import logic.RoomLogic;
@@ -69,13 +73,18 @@ public class RoomServlet extends HttpServlet {
 					request.setAttribute("buttonMessage", "Aceptar");
 					request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
 				} else {
+	                List<RankedUser> rankedUsers = roomLogic.getRanking(foundRoom);
+	                request.setAttribute("rankedUsers", rankedUsers);
 					foundRoom.setAdmin(roomLogic.getRoomAdmin(foundRoom));
 					foundRoom.setQuizzes(roomLogic.getRoomQuizzes(foundRoom));
 					request.setAttribute("room", foundRoom);
 					request.getRequestDispatcher("WEB-INF/room.jsp").forward(request, response);
+
+
 				}
 			}
 		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

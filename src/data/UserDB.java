@@ -55,7 +55,8 @@ public class UserDB {
 					String surname = rs.getString("surname");
 					String email = rs.getString("email");
 					String password = rs.getString("password");
-					user = new User(id, name, surname, email, password);
+					int role = rs.getInt("role");
+					user = new User(id, name, surname, email, password, role);
 				}
 				con.close();
 			} catch (SQLException e) {
@@ -85,8 +86,8 @@ public class UserDB {
 					String surname = rs.getString("surname");
 					String email = rs.getString("email");
 					String password = rs.getString("password");
-					//System.out.println(deleted);
-					user = new User(id, name, surname, email, password);
+					int role = rs.getInt("role");
+					user = new User(id, name, surname, email, password, role);
 				}
 				con.close();
 			} catch (SQLException e) {
