@@ -61,6 +61,62 @@ public class TopicDB {
 			
 			return topic;
 		}
-	}
+	
+		public void save(Topic t) {
+			String sqlSelect = "insert into topics(name) values(?)";
+			Connect connect = new Connect();
+			Connection con = connect.getConnection();
+			
+			if (con != null) {
+				try {
+					PreparedStatement stm = con.prepareStatement(sqlSelect);
+					stm.setString(1, t.getName());
+					stm.executeUpdate();
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		public void delete(Topic t) {
+			String sqlSelect = "DELETE FROM topics WHERE id = ?";
+			Connect connect = new Connect();
+			Connection con = connect.getConnection();
+			
+			if (con != null) {
+				try {
+					PreparedStatement stm = con.prepareStatement(sqlSelect);
+					stm.setInt(1, t.getId());
+					stm.executeUpdate();
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+
+		public void update(Topic t) {
+			String sqlSelect = "update topics set delete = false where id = ?";
+			Connect connect = new Connect();
+			Connection con = connect.getConnection();
+			
+			if (con != null) {
+				try {
+					PreparedStatement stm = con.prepareStatement(sqlSelect);
+					stm.setString(1, t.getName());
+					stm.setInt(2, t.getId());
+					stm.executeUpdate();
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+
+}
 	
 

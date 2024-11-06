@@ -26,9 +26,7 @@ public class TopicLogic {
 		return topic;
 	}
 
-	public void delete(Topic t) {
-	}
-
+	
 	public Topic validateAttributes(Topic t) {
 		if (t.getId() >= 0 && t.getName() != null && !StringUtils.isEmptyOrWhitespaceOnly(t.getName())) {
 			return(t);
@@ -36,9 +34,17 @@ public class TopicLogic {
 		return null;
 	}
 
+
 	public void save(Topic t) {
+		topicDB.save(t);
+	}
+	
+	public void delete(Topic t) {
+		topicDB.delete(t);
 	}
 	
 	public void update(Topic t) {
+		topicDB.update(t);
 	}
+
 }
