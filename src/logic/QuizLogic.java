@@ -23,4 +23,9 @@ public class QuizLogic {
 		}
 		return quiz;
 	}
+	
+	public Quiz save(Quiz q) {
+		Quiz quiz = quizDB.save(q);
+		return quiz;
+	}
 }

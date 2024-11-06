@@ -2,17 +2,23 @@ package logic;
 
 import java.util.ArrayList;
 
-import com.mysql.cj.util.StringUtils;
-
+import data.TopicDB;
 import entities.Topic;
 
+import com.mysql.cj.util.StringUtils;
+
 public class TopicLogic {
-	//TopicDB topicDB = new TopicDB();
+	
+	TopicDB topicDB = new TopicDB();
 	
 	public ArrayList<Topic> getAll() {
-		ArrayList<Topic> topics = new ArrayList<Topic>();
-		topics.add(new Topic(1, "Banana", false));
+		ArrayList<Topic> topics =topicDB.getAll();
 		return topics;
+	}
+	
+	public Topic getByName(Topic t) {
+		Topic topic = topicDB.getByName(t);
+		return topic;
 	}
 
 	public Topic getById(Topic t) {

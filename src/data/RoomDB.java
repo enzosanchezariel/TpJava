@@ -112,7 +112,7 @@ public class RoomDB {
 	
 	
 	public void save(Room r) {
-		String sqlSelect = "insert into rooms(name, code, max_amount_participants, init_date, end_date, admin) values(?, ?, ?, ?, ?, ?)";
+		String sqlSelect = "insert into rooms(name, code, max_amount_participants, init_date, end_date) values(?, ?, ?, ?, ?)";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
 		
@@ -124,7 +124,6 @@ public class RoomDB {
 				stm.setInt(3, r.getMaxAmountParticipants());
 				stm.setDate(4, r.getInitDate());
 				stm.setDate(5, r.getEndDate());
-				stm.setInt(6, r.getAdmin().getId());
 				stm.executeUpdate();
 				con.close();
 			} catch (SQLException e) {

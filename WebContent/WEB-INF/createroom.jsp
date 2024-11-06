@@ -31,7 +31,7 @@
                         <input name="name" placeholder="Nombre" autocomplete="given-name"  required/>
                     </label>
                     <label>Cantidad máxima de personas
-                        <input type="number" name="maxAmountParticipants" placeholder="Ingrese un número" autocomplete="given-name"  required/>
+                        <input type="number" name="maxAmountParticipants" min=1 placeholder="Ingrese un número" autocomplete="given-name"  required/>
                     </label>
                     <label>Código
                         <input name="code" maxlength="36" placeholder="Código" autocomplete="given-name"  required/>

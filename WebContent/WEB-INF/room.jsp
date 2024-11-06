@@ -88,7 +88,7 @@
            <hr/>
 		<h3>Formularios disponibles</h3>
            <% for (Quiz quiz : room.getQuizzes()) { if (!quiz.isDeleted()){%>
-            <a href="quiz?id=<%=quiz.getId()%>" class="secondary no-underline">
+            <a href="#" class="secondary no-underline">
                 <article>
                     <strong><%= quiz.getName() %></strong>
 	                <footer>
@@ -109,7 +109,14 @@
    				<strong>No hay formularios</strong>
    			</article>
    		<% } %>
-   		
+   		<% if (room.getAdmin() != null) { %>
+	   		<% if (usr.getId() == room.getAdmin().getId()){ %>
+	   			<form action="createquiz" method="get">
+	   					<input type="hidden" name="room" value="<%=room.getCode()%>">
+	               		<button type="submit">Crear Quiz</button>
+	            </form>
+	   		<% } %>
+	   	<% } %>
 	<details>
     	<summary role="button">Mostrar Ranking</summary>
     	<table>
