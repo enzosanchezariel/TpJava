@@ -1,3 +1,5 @@
+<%@page import="entities.Participation"%>
+<%@page import="logic.ParticipationLogic"%>
 <%@ page import="entities.Room" %>
 <%@ page import="entities.User" %>
 <%@ page import="entities.Quiz" %>
@@ -19,6 +21,7 @@
 		Room room = (Room)request.getAttribute("room");
 		User usr = (User)request.getSession().getAttribute("user");
 		List<RankedUser> rankedUsers = (List<RankedUser>) request.getAttribute("rankedUsers"); 
+		ParticipationLogic participationLogic = new ParticipationLogic();
 	%>
 	
 	<script type="text/javascript">
@@ -84,10 +87,16 @@
 	                   <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-users"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13.163 2.168l8.021 5.828c.694 .504 .984 1.397 .719 2.212l-3.064 9.43a1.978 1.978 0 0 1 -1.881 1.367h-9.916a1.978 1.978 0 0 1 -1.881 -1.367l-3.064 -9.43a1.978 1.978 0 0 1 .719 -2.212l8.021 -5.828a1.978 1.978 0 0 1 2.326 0z" /><path d="M12 13a3 3 0 1 0 0 -6a3 3 0 0 0 0 6z" /><path d="M6 20.703v-.703a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v.707" /></svg>
 	                   <strong>Admin: <%=room.getAdmin().getName()%> <%=room.getAdmin().getSurname()%></strong></div>
                <% } %>
+               <% if (room.getAdmin() != null && room.getAdmin().getId() == usr.getId()) {%>
+	               <div class="chip">
+	               		<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-lock"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z" /><path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M8 11v-4a4 4 0 1 1 8 0v4" /></svg>
+	                   <strong>Código: <%=room.getCode()%></strong></div>
+               <% } %>
            </div>
            <hr/>
 		<h3>Formularios disponibles</h3>
            <% for (Quiz quiz : room.getQuizzes()) { if (!quiz.isDeleted()){%>
+           <% Participation participation = participationLogic.getParticipationByUserAndQuiz(usr, quiz); %>
             <a href="quiz?id=<%= quiz.getId() %>" class="secondary no-underline">
                 <article>
                     <strong><%= quiz.getName() %></strong>
@@ -99,7 +108,13 @@
 	                        <div class="chip">
 	                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-hourglass-empty"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 20v-2a6 6 0 1 1 12 0v2a1 1 0 0 1 -1 1h-10a1 1 0 0 1 -1 -1z" /><path d="M6 4v2a6 6 0 1 0 12 0v-2a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1z" /></svg>
 	                            <strong>Duración: <%= quiz.getMaxDurationAsString() %></strong></div>
-	                    </div>
+	                    	<% if (participation != null) { %>
+		                    	<div class="chip">
+		                    		<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
+		                            <strong>Completado: <%= participation.getAmountRight() %> puntos</strong></div>
+		                    	</div>
+	                    	<% } %>
+	                    	</div>
 	                </footer>
             	</article>
          	</a>

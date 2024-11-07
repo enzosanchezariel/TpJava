@@ -36,16 +36,16 @@
             <label>Nombre del desafío<input name="name" value="<%= challenge.getNameChallenge() %>" placeholder="Nombre del desafío" required/></label>
 			<label>Tema del desafío
 				<select name="topic" aria-label="Selecciona el tema" required>
-					<option selected disabled value="">
+					<option disabled>
 						Selecciona el tema
 					</option>
 					<% for(Topic topic: topics) { %>
-						<option value="<%= topic.getId() %>"><%= topic.getName() %></option>
+						<option value="<%= topic.getId() %>" <% if (topic.getId() == challenge.getTopic().getId()) { %> selected <% } %>><%= topic.getName() %></option>
 					<% } %>
 				</select>
 			</label>
 			<label>Cantidad de respuestas correctas
-				<input name="amountQuestions" type="number" placeholder="Cantidad de respuestas correctas" required>
+				<input name="amountQuestions" type="number" placeholder="Cantidad de respuestas correctas" value="<%= challenge.getAmountQuestions() %>" required>
 			</label>
 			<button type="submit">Modificar</button>
         </form>
