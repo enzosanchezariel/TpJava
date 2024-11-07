@@ -91,7 +91,7 @@ public class ChallengeDB {
 	}
 	
 	public void delete(Challenge c) {
-		String sqlSelect = "delete * from challenges where id = ?";
+		String sqlSelect = "delete from challenges where id = ?";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
 		
@@ -110,7 +110,7 @@ public class ChallengeDB {
 	}
 	
 	public void update(Challenge c) {
-		String sqlSelect = "update challenges set name = ?, amount_questions = ?, topic = ? ";
+		String sqlSelect = "update challenges set name = ?, amount_questions = ?, topic = ? where id = ?";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
 		
@@ -120,6 +120,7 @@ public class ChallengeDB {
 				stm.setString(1, c.getNameChallenge());
 				stm.setInt(2, c.getAmountQuestions());
 				stm.setInt(3, c.getTopic().getId());
+				stm.setInt(4, c.getIdChallenge());
 				stm.executeUpdate();
 				con.close();
 			}catch (SQLException e) {

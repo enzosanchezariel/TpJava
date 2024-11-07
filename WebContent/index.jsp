@@ -145,9 +145,9 @@
 	        <%}%>
 	        
 	        <% if (usr != null && usr.isAdmin()) { %>
-	        	<a href="topics"><button>Configurar temas</button></a>
-	        	<a href="challenges"><button>Configurar desafíos</button></a>
-	        	<a href="ranks"><button>Configurar rangos</button></a>
+	        	<div class="admin-buttons"><a href="topics"><button>Configurar temas</button></a></div>
+	        	<div class="admin-buttons"><a href="challenges"><button>Configurar desafíos</button></a></div>
+	        	<div class="admin-buttons"><a href="ranks"><button>Configurar rangos</button></a></div>
 	        <% } %>
 		</main>
 	</body>

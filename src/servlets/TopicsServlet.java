@@ -44,7 +44,7 @@ public class TopicsServlet extends HttpServlet {
 					}
 				}
 			}
-			request.setAttribute("topics", topicLogic.getAll());
+			request.setAttribute("topics", topicLogic.getAllNotDisabled());
 			request.getRequestDispatcher("WEB-INF/listtopics.jsp").forward(request, response);
 			
 		} else {

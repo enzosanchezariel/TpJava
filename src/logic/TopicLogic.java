@@ -16,13 +16,24 @@ public class TopicLogic {
 		return topics;
 	}
 	
+	public ArrayList<Topic> getAllNotDisabled() {
+		ArrayList<Topic> topics = topicDB.getAll();
+		ArrayList<Topic> filteredTopics = new ArrayList<Topic>();
+		for (Topic topic : topics) {
+			if (!topic.isDeleted()) {
+				filteredTopics.add(topic);
+			}
+		}
+		return filteredTopics;
+	}
+	
 	public Topic getByName(Topic t) {
 		Topic topic = topicDB.getByName(t);
 		return topic;
 	}
-
+	
 	public Topic getById(Topic t) {
-		Topic topic = new Topic(t.getId(), "Banana", false);
+		Topic topic = topicDB.getById(t);
 		return topic;
 	}
 

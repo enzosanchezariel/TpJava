@@ -25,9 +25,12 @@
 	</header>
     <main class="container">
     <h3>Modificar tema</h3>
-    	<% for (Topic topic : topics) { %>
-    		<a href="topic?id=<%= topic.getId() %>"><p><%= topic.getName() %></p></a>
-    	<% } %>
+    	<% if (!topics.isEmpty()) { %>
+	    	<% for (Topic topic : topics) { if (!topic.isDeleted()) { %>
+	    		<a href="topic?id=<%= topic.getId() %>"><p><%= topic.getName() %></p></a>
+	    	<% } } } else { %>
+	    	<article><strong>No hay temas registrados.</strong></article>
+	    <% } %>
         <hr />
         <h3>Crear tema</h3>
         <form action="topic" method="post">

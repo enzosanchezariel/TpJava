@@ -41,5 +41,8 @@ public class Challenge {
 		this.amountQuestions = amountQuestions;
 		this.topic = topic; 
 	}
+	public Challenge() {
+		// TODO Auto-generated constructor stub
+	}
 	
 }

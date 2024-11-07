@@ -61,6 +61,33 @@ public class TopicDB {
 			
 			return topic;
 		}
+		
+		public Topic getById(Topic t) {
+			String sqlSelect = "select * from topics where id = ?";
+			Connect connect = new Connect();
+			Connection con = connect.getConnection();
+			Topic topic = null;
+			
+			if (con != null) {
+				try {
+					PreparedStatement stm = con.prepareStatement(sqlSelect);
+		            stm.setInt(1, t.getId());
+					ResultSet rs = stm.executeQuery();
+					if (rs.next()) {
+						int id = rs.getInt("id");
+						String name = rs.getString("name");
+						boolean deleted = rs.getBoolean("deleted");
+						topic = new Topic(id, name, deleted);
+					}
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			return topic;
+		}
 	
 		public void save(Topic t) {
 			String sqlSelect = "insert into topics(name) values(?)";
@@ -81,7 +108,7 @@ public class TopicDB {
 		}
 		
 		public void delete(Topic t) {
-			String sqlSelect = "DELETE FROM topics WHERE id = ?";
+			String sqlSelect = "update topics set deleted = 1 where id = ?";
 			Connect connect = new Connect();
 			Connection con = connect.getConnection();
 			
@@ -99,7 +126,7 @@ public class TopicDB {
 		}
 
 		public void update(Topic t) {
-			String sqlSelect = "update topics set delete = false where id = ?";
+			String sqlSelect = "update topics set name = ? where id = ?";
 			Connect connect = new Connect();
 			Connection con = connect.getConnection();
 			
