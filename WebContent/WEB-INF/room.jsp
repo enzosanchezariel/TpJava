@@ -118,6 +118,14 @@
 	                </footer>
             	</article>
          	</a>
+         	
+         	<% if (room.getAdmin() != null && usr.getId() == room.getAdmin().getId()) {%>
+				<form action="removequiz" method="post" id="removeQuiz">
+					<input type="hidden" name="id" value="<%=quiz.getId()%>">
+					<button type="submit" style="background-color: #D93526; border-color:#D93526">Eliminar Quiz</button>
+				</form>
+			<% } %>
+			
         <% } } %>
         <% if (room.getQuizzes().isEmpty()) { %>
    			<article>

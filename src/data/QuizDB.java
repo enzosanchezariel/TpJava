@@ -139,5 +139,22 @@ public class QuizDB {
 	    }
 	    return savedQuiz;
 	}
-	
+
+	public void delete(Quiz q) {
+		String sqlSelect = "update quizzes set deleted = 1 where id = ?";
+		Connect connect = new Connect();
+		Connection con = connect.getConnection();
+		
+		if (con != null) {
+			try {
+				PreparedStatement stm = con.prepareStatement(sqlSelect);
+				stm.setInt(1, q.getId());
+				stm.executeUpdate();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }

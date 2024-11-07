@@ -28,4 +28,8 @@ public class QuizLogic {
 		Quiz quiz = quizDB.save(q);
 		return quiz;
 	}
+	
+	public void delete(Quiz q) {
+		quizDB.delete(q);
+	}
 }
