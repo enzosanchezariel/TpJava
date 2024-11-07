@@ -266,7 +266,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Ricardo','Darín','darin.carp@gmail.com','asdasd',0),(2,'Mark','Zuckerberg','area51.boy@meta.com','dadada',0),(3,'Gustavo','Cerati','gustavo.stereo@outlook.com','americanBlind',0),(4,'Diego','Maradona','d10.maradona@hotmail.com','footballHigh',0),(5,'Mario','Bros','itsame.mario@yahoo.com','solong',0),(6,'Enzo','Sánchez','enzo.sanchez.ariel@gmail.com','asdasd',1),(7,'Donald','Trump','donald.trump@usa.usa','WallLover',0),(8,'Lautaro','Duarte','lautaroduarte@gmail.com','asdasd',1);
+INSERT INTO `users` VALUES (1,'Ricardo','Darín','darin.carp@gmail.com','asdasd',0),(2,'Mark','Zuckerberg','area51.boy@meta.com','dadada',0),(3,'Gustavo','Cerati','gustavo.stereo@outlook.com','americanBlind',0),(4,'Diego','Maradona','d10.maradona@hotmail.com','footballHigh',0),(5,'Mario','Bros','itsame.mario@yahoo.com','solong',0),(6,'Enzo','Sánchez','enzo.sanchez.ariel@gmail.com','asdasd',1),(7,'Donald','Trump','donald.trump@usa.usa','WallLover',0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 

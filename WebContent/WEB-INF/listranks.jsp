@@ -36,7 +36,7 @@
         <form action="rank" method="post">
 			<input type="hidden" name="action" value="create">
 			<label>Nombre del rango<input name="name" placeholder="Nombre del rango" required/></label>
-			<label>Cantidad de desafíos<input name="amountChallenges"  min="0" placeholder="Cantidad de desafíos" type="number" required/></label>
+			<label>Cantidad de desafíos<input name="amountChallenges" placeholder="Cantidad de desafíos" type="number" required/></label>
 			<button type="submit">
 				Crear
 			</button>

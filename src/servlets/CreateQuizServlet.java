@@ -86,8 +86,8 @@ public class CreateQuizServlet extends HttpServlet {
 		Room foundRoom = roomLogic.getRoomByCode(room);
 		
 		Topic topic = new Topic();
-		topic.setId(Integer.parseInt(request.getParameter("topicId")));
-		Topic foundTopic = topicLogic.getById(topic);
+		topic.setName(request.getParameter("topicName"));
+		Topic foundTopic = topicLogic.getByName(topic);
 		
 		
 		if(foundRoom == null) {
