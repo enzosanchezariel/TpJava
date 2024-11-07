@@ -50,6 +50,7 @@
 	</header>
 	<main class="container">
     <h2>Crear un quiz</h2>
+    	<% if (!topics.isEmpty()) { %>
         <form action="createQuiz" method="post" onsubmit="return validateQuizForm();">
             <article>
                 <fieldset>
@@ -60,13 +61,15 @@
                         <input type="time" name="maxDuration" placeholder="Duración" required/>
                     </label>
                     <label>Tema
-	                    <select name="topicName" aria-label="Selecciona el tema" required>
-						  	<option selected disabled value="">
-							    Selecciona el tema
-							</option>
-							<% for(Topic aTopic: topics){%>
-							<option><%= aTopic.getName() %></option>
-							<% } %>
+	                    <select name="topicId" aria-label="Selecciona el tema" required>
+						    <option selected disabled value="">
+						        Selecciona el tema
+						    </option>
+						        <% for(Topic aTopic: topics){ %>
+						            <% if (!aTopic.isDeleted()) { %>
+						                <option value="<%= aTopic.getId() %>"><%= aTopic.getName() %></option>
+						            <% } %>
+						        <% } %>
 						</select>
 					</label>
                 </fieldset>
@@ -107,6 +110,10 @@
 	        <input type="hidden" name="room" value="<%=room.getCode()%>">
         	<button type="submit">Guardar Preguntas</button>
     	</form>
+    	<% } else { %>
+    		<strong>No puede crear quizzes</strong>
+	    	<footer>Necesita al menos un tema registrado.</footer>
+    	<% }  %>
     </main>
     
 </body>

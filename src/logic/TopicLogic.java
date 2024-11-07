@@ -27,10 +27,6 @@ public class TopicLogic {
 		return filteredTopics;
 	}
 	
-	public Topic getByName(Topic t) {
-		Topic topic = topicDB.getByName(t);
-		return topic;
-	}
 	
 	public Topic getById(Topic t) {
 		Topic topic = topicDB.getById(t);
