@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 
 public class Connect {
 	public static final String URL = "jdbc:mysql://localhost:3306/tp_java";
-    public static final String USER = "java";
-    public static final String PASSWORD = "java";
+    public static final String USER = "root";
+    public static final String PASSWORD = "administrador";
      
     public Connection getConnection(){
         Connection con = null;

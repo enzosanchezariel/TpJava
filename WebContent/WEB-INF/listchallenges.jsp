@@ -55,7 +55,7 @@
 					</select>
 				</label>
 				<label>Cantidad de respuestas correctas
-					<input name="amountQuestions" type="number" placeholder="Cantidad de respuestas correctas" required>
+					<input name="amountQuestions" type="number" min="1" placeholder="Cantidad de respuestas correctas" required>
 				</label>
 				<button type="submit">Crear</button>
 	        </form>
