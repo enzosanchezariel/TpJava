@@ -1,21 +1,21 @@
 package entities;
 
 public class Rank {
-	int idRange;
-	String description;
+	int id;
+	String name;
 	int amountChallenges;
 	
-	public int getIdRange() {
-		return idRange;
+	public int getId() {
+		return id;
 	}
-	public void setIdRange(int idRange) {
-		this.idRange = idRange;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public String getDescription() {
-		return description;
+	public String getName() {
+		return name;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public int getAmountChallenges() {
 		return amountChallenges;
@@ -26,9 +26,9 @@ public class Rank {
 	
 	public Rank() {}
 	
-	public Rank(int idRange, String description, int amountChallenges) {
-		this.idRange = idRange;
-		this.description = description;
+	public Rank(int id, String name, int amountChallenges) {
+		this.id = id;
+		this.name = name;
 		this.amountChallenges = amountChallenges;
 	}
 	

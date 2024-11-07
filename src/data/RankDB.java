@@ -21,7 +21,7 @@ public class RankDB {
 				ResultSet rs = stm.executeQuery();
 				while (rs.next()) {
 					int idRange = rs.getInt("id");
-					String description = rs.getString("description");
+					String description = rs.getString("name");
 					int amountChallenges = rs.getInt("amount_challenges");
 					ranks.add(new Rank(idRange, description, amountChallenges));
 				}
@@ -45,11 +45,11 @@ public class RankDB {
 		if (con != null) {
 			try {
 				PreparedStatement stm = con.prepareStatement(sqlSelect);
-	            stm.setInt(1, r.getIdRange());
+	            stm.setInt(1, r.getId());
 				ResultSet rs = stm.executeQuery();
 				while (rs.next()) {
 					int idRange = rs.getInt("id");
-					String description = rs.getString("description");
+					String description = rs.getString("name");
 					int amountChallenges = rs.getInt("amount_challenges");
 					rank = new Rank(idRange, description, amountChallenges);
 				}
@@ -65,14 +65,14 @@ public class RankDB {
 	
 	
 	public void save(Rank r) {
-		String sqlSelect = "insert into ranks(description,amount_challenges) value (?,?)";
+		String sqlSelect = "insert into ranks(name,amount_challenges) value (?,?)";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
 		
 		if(con != null) {
 			try {
 				PreparedStatement stm = con.prepareStatement(sqlSelect);
-				stm.setString(1, r.getDescription());
+				stm.setString(1, r.getName());
 				stm.setInt(2, r.getAmountChallenges());
 				stm.executeUpdate();
 				con.close();
@@ -83,16 +83,16 @@ public class RankDB {
 		}
 	}
 	
-	public void detele(Rank r) {
+	public void delete(Rank r) {
 		
-		String sqlSelect = "delete * from ranks where id = ?";
+		String sqlSelect = "delete from ranks where id = ?";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
 		
 		if (con != null) {
 			try {
 				PreparedStatement stm = con.prepareStatement(sqlSelect);
-				stm.setInt(1, r.getIdRange());
+				stm.setInt(1, r.getId());
 				stm.executeUpdate();
 				con.close();
 			} catch (SQLException e) {
@@ -106,14 +106,15 @@ public class RankDB {
 	
 	public void update(Rank r) {
 		
-		String sqlSelect = "update ranks set description = ?, amount_challenges = ?";
+		String sqlSelect = "update ranks set name = ?, amount_challenges = ? where id = ?";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
 		if(con != null) {
 			try {
 				PreparedStatement stm = con.prepareStatement(sqlSelect);
-				stm.setString(1, r.getDescription());
+				stm.setString(1, r.getName());
 				stm.setInt(2, r.getAmountChallenges());
+				stm.setInt(3, r.getId());
 				stm.executeUpdate();
 				con.close();
 			}catch (SQLException e) {
