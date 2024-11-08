@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +19,7 @@ import entities.Question;
 import entities.Quiz;
 import entities.Response;
 import entities.User;
+import logic.EmailLogic;
 import logic.ParticipationLogic;
 import logic.QuizLogic;
 import logic.RoomLogic;
@@ -126,6 +128,7 @@ public class QuizServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Participation ongoingParticipation = (Participation) request.getSession().getAttribute("attempt");
+		String userEmail = (String) request.getSession().getAttribute("email");
 		
 		if (ongoingParticipation != null && ongoingParticipation.isValid()) {
 			
@@ -160,6 +163,10 @@ public class QuizServlet extends HttpServlet {
 			ongoingParticipation = null;
 			
 			request.getRequestDispatcher("WEB-INF/quizresult.jsp").forward(request, response);
+			
+			EmailLogic mailLogic = new EmailLogic();
+		    mailLogic.sendQuizResults(userEmail, quizResponses);
+
 		} else {
 			request.setAttribute("headTitle", "Respuesta no registrada");
 			request.setAttribute("bodyTitle", "El intento expiró y no se registró su respuesta");
