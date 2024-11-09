@@ -41,6 +41,9 @@ public class RoomLogic {
 		if (r.getAmountParticipants() >= r.getMaxAmountParticipants()) {
 			return false;
 		}
+		if (!r.isValid()) {
+			return false;
+		}
 		return true;
 	}
 	
