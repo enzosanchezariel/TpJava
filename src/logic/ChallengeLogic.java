@@ -6,6 +6,7 @@ import com.mysql.cj.util.StringUtils;
 
 import data.ChallengeDB;
 import entities.Challenge;
+import entities.User;
 
 public class ChallengeLogic {
 	
@@ -40,5 +41,10 @@ public class ChallengeLogic {
 
 	public void save(Challenge c) {
 		challengeDB.save(c);
+	}
+
+
+	public ArrayList<Challenge> challengeByUserId(User u){
+		return challengeDB.challengesByUserId(u);
 	}
 }

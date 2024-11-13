@@ -2,6 +2,8 @@
 <%@ page import="entities.Room" %>
 <%@ page import="logic.RoomLogic" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import= "entities.Challenge" %>
+<%@ page import="logic.ChallengeLogic" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -15,10 +17,13 @@
 		<link rel="stylesheet" href="style/index.css" />
 		<%
 		User usr = (User)request.getSession().getAttribute("user");
+		ArrayList<Challenge> challenges = null;
 		//ArrayList<Room> rooms = null;
 		if (usr != null) {
 			RoomLogic roomLogic = new RoomLogic();
 			usr.setRooms(roomLogic.getRoomsByUser(usr));
+			ChallengeLogic challengeLogic = new ChallengeLogic();
+			challenges = challengeLogic.challengeByUserId(usr);
 		}
 		%>
 	</head>
@@ -111,8 +116,19 @@
 	                    </article>
 	                </div>
 	            </div>
-	            <hr />
-				<h3>Salas disponibles</h3>
+	            <hr/>
+	            <h3>Desafios Realizados</h3>
+	           <% if (!challenges.isEmpty()) { %>
+	    	<% for (Challenge challenge : challenges) { %>
+	    		<span><%= challenge.getIdChallenge() %></span> 
+	    		<span><%= challenge.getNameChallenge()%></span>
+	    	<% } %>
+	   	<% } else { %>
+	    	<article>
+	    		<strong>No hay desafíos registrados</strong>
+	    	</article>
+	    <% } %>
+	            <h3>Salas disponibles</h3>
 	            <div class="responsive-grid">
 	            	<% for (Room room : usr.getRooms()) { if (!room.isDeleted() && room.isValid()) {%>
 	            	<a href="room?id=<%=room.getId()%>" class="secondary no-underline">
