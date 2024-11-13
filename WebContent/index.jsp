@@ -1,3 +1,4 @@
+<%@page import="logic.TopicLogic"%>
 <%@ page import="entities.User" %>
 <%@ page import="entities.Room" %>
 <%@ page import="logic.RoomLogic" %>
@@ -18,6 +19,7 @@
 		<%
 		User usr = (User)request.getSession().getAttribute("user");
 		ArrayList<Challenge> challenges = null;
+		TopicLogic topicLogic = new TopicLogic();
 		//ArrayList<Room> rooms = null;
 		if (usr != null) {
 			RoomLogic roomLogic = new RoomLogic();
@@ -118,16 +120,33 @@
 	            </div>
 	            <hr/>
 	            <h3>Desafios Realizados</h3>
-	           <% if (!challenges.isEmpty()) { %>
-	    	<% for (Challenge challenge : challenges) { %>
-	    		<span><%= challenge.getIdChallenge() %></span> 
-	    		<span><%= challenge.getNameChallenge()%></span>
-	    	<% } %>
-	   	<% } else { %>
-	    	<article>
-	    		<strong>No hay desafíos registrados</strong>
-	    	</article>
-	    <% } %>
+			    	
+			    	<details>
+				    	<summary role="button">Mostrar Desafios</summary>
+				    	<table>
+				        	<thead>
+				            	<tr>
+				                	<th>Nombre</th>
+				                	<th>Tema</th>
+				            	</tr>
+				        	</thead>
+				        	<tbody>
+				        		<% if (!challenges.isEmpty()) { %>
+				                	<% for (Challenge challenge : challenges) { %>
+				                    	<tr>
+				                        	<td><%= challenge.getNameChallenge() %></td>
+				                        	<td><%= topicLogic.getById(challenge.getTopic()).getName() %></td>
+				                    	</tr>
+				                    <% } %>
+				            	<% } else { %>
+				                	<tr>
+				                    	<td colspan="3">No completó ningún desafío</td>
+				                	</tr>
+				            	<% } %>
+				        	</tbody>
+				    	</table>
+					</details>
+			    	
 	            <h3>Salas disponibles</h3>
 	            <div class="responsive-grid">
 	            	<% for (Room room : usr.getRooms()) { if (!room.isDeleted() && room.isValid()) {%>

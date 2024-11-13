@@ -29,8 +29,8 @@ public class EmailLogic {
 	}
 	
     private void sendEmail() throws MessagingException {
-        String fromUser = "-email@gmail.com";  // Crear un mail del proyecto para poner aca 
-        String fromUserPassword = "-password"; // 
+        String fromUser = "********@gmail.com";  // Mail del proyecto 
+        String fromUserPassword = "**** **** **** ****"; // Contraseña de la app
         String emailHost = "smtp.gmail.com";
         
         Transport transport = newSession.getTransport("smtp");
@@ -51,14 +51,23 @@ public class EmailLogic {
 
         StringBuilder emailBody = new StringBuilder(); // Cuerpo del mail
         emailBody.append("Respuestas del cuestionario:\n\n");
+        
+        Integer amountRight = 0;
      
         for (Response response : responses) {
             Question question = response.getQuestion();
             int userAnswer = response.getUserResponse();
             
             emailBody.append("Pregunta: ").append(question.getQuestionText()).append("\n");
-            emailBody.append("Tu respuesta: ").append(userAnswer).append("\n\n");
+            emailBody.append("Tu respuesta: ").append(question.getOptions().get(userAnswer));
+            if (userAnswer == question.getCorrectAnswer()) {
+            	emailBody.append(" (Correcta)\n\n");
+            	amountRight++;
+			} else {
+				emailBody.append(" (Incorrecta)\n\n");
+			}
         }
+        emailBody.append("\nPuntaje total: ").append(amountRight);
         
         emailBody.append("Gracias por completar el cuestionario.");
         

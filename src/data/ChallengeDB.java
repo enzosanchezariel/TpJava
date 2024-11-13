@@ -133,7 +133,7 @@ public class ChallengeDB {
 		
 	}
 
-	public ArrayList<Challenge> challengeByUserId(User u){
+	public ArrayList<Challenge> challengesByUserId(User u){
 		String sqlSelect = "SELECT challenges.* FROM challenges\r\n"
 				+ "INNER JOIN topics\r\n"
 				+ "ON challenges.topic = topics.id\r\n"
@@ -153,6 +153,7 @@ public class ChallengeDB {
 		if (con != null) {
 			try {
 				PreparedStatement stm = con.prepareStatement(sqlSelect);
+				stm.setInt(1, u.getId());
 				ResultSet rs = stm.executeQuery();
 				while (rs.next()) {
 					int idChallenge = rs.getInt("id");

@@ -128,7 +128,6 @@ public class QuizServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Participation ongoingParticipation = (Participation) request.getSession().getAttribute("attempt");
-		String userEmail = (String) request.getSession().getAttribute("email");
 		
 		if (ongoingParticipation != null && ongoingParticipation.isValid()) {
 			
@@ -159,13 +158,16 @@ public class QuizServlet extends HttpServlet {
 			}
 			ongoingParticipation.setAmountRight(amountRight);
 			participationLogic.updateParticipation(ongoingParticipation);
+			
+			if (ongoingParticipation.getUser() != null && ongoingParticipation.getUser().getEmail() != null) {
+				EmailLogic mailLogic = new EmailLogic();
+			    mailLogic.sendQuizResults(ongoingParticipation.getUser().getEmail(), quizResponses);
+			}
+			
 			request.getSession().removeAttribute("attempt");
 			ongoingParticipation = null;
 			
 			request.getRequestDispatcher("WEB-INF/quizresult.jsp").forward(request, response);
-			
-			EmailLogic mailLogic = new EmailLogic();
-		    mailLogic.sendQuizResults(userEmail, quizResponses);
 
 		} else {
 			request.setAttribute("headTitle", "Respuesta no registrada");
