@@ -6,6 +6,7 @@ import com.mysql.cj.util.StringUtils;
 
 import data.RankDB;
 import entities.Rank;
+import entities.User;
 
 public class RankLogic {
 	
@@ -38,5 +39,9 @@ public class RankLogic {
 
 	public void save(Rank r) {
 		rankDB.save(r);
+	}
+
+	public Rank getRankByUserId(User u) {
+		return rankDB.getRankByUserId(u);
 	}
 }

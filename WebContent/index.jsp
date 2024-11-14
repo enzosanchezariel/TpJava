@@ -4,6 +4,9 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import= "entities.Challenge" %>
 <%@ page import="logic.ChallengeLogic" %>
+<%@ page import ="entities.Rank" %>
+<%@ page import="logic.RankLogic" %>
+
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -18,12 +21,16 @@
 		<%
 		User usr = (User)request.getSession().getAttribute("user");
 		ArrayList<Challenge> challenges = null;
+		Rank rank = new Rank();
+		rank = null;
 		//ArrayList<Room> rooms = null;
 		if (usr != null) {
 			RoomLogic roomLogic = new RoomLogic();
 			usr.setRooms(roomLogic.getRoomsByUser(usr));
 			ChallengeLogic challengeLogic = new ChallengeLogic();
 			challenges = challengeLogic.challengeByUserId(usr);
+			RankLogic rankLogic = new RankLogic();
+			rank = rankLogic.getRankByUserId(usr);
 		}
 		%>
 	</head>
@@ -117,6 +124,15 @@
 	                </div>
 	            </div>
 	            <hr/>
+	            <h3>Tu Rango es: </h3>
+	            <% if (rank != null) { %>
+	    		<span><%= rank.getName() %></span> 
+	    	<% } %>
+	   	<% } else { %>
+	    	<article>
+	    		<strong>No tienes rango</strong>
+	    	</article>
+	    <% } %>
 	            <h3>Desafios Realizados</h3>
 	           <% if (!challenges.isEmpty()) { %>
 	    	<% for (Challenge challenge : challenges) { %>

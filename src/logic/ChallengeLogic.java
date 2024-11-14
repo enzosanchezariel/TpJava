@@ -45,6 +45,6 @@ public class ChallengeLogic {
 
 
 	public ArrayList<Challenge> challengeByUserId(User u){
-		return challengeDB.challengesByUserId(u);
+		return challengeDB.challengeByUserId(u);
 	}
 }
