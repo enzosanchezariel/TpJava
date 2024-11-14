@@ -147,20 +147,20 @@ public class RankDB {
 				+ ")";
 		Connect connect = new Connect();
 		Connection con = connect.getConnection();
-		Rank rank = new Rank();
+		Rank rank = null;
 		
 		if (con != null) {
 			try {
 				PreparedStatement stm = con.prepareStatement(sqlSelect);
-			ResultSet rs = stm.executeQuery();
-			while (rs.next()) {
-				int idRange = rs.getInt("id");
-				String description = rs.getString("name");
-				int amountChallenges = rs.getInt("amount_challenges");
-				rank = new Rank(idRange, description, amountChallenges);
-			
+				stm.setInt(1, u.getId());
+				ResultSet rs = stm.executeQuery();
+				if (rs.next()) {
+					int idRange = rs.getInt("id");
+					String description = rs.getString("name");
+					int amountChallenges = rs.getInt("amount_challenges");
+					rank = new Rank(idRange, description, amountChallenges);
 				}
-				con.close();
+					con.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

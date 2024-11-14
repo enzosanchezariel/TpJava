@@ -29,7 +29,7 @@
 			RoomLogic roomLogic = new RoomLogic();
 			usr.setRooms(roomLogic.getRoomsByUser(usr));
 			ChallengeLogic challengeLogic = new ChallengeLogic();
-			challenges = challengeLogic.challengeByUserId(usr);
+			challenges = challengeLogic.challengesByUserId(usr);
 			RankLogic rankLogic = new RankLogic();
 			rank = rankLogic.getRankByUserId(usr);
 		}
@@ -127,8 +127,9 @@
 	            <hr/>
 	            <h3>Tu Rango es: </h3>
 	            <% if (rank != null) { %>
-	    		<span><%= rank.getName() %></span> 
-	    	<% } %>
+	            <article>
+	            	<strong><%= rank.getName() %></strong>
+	            </article>
 	   	<% } else { %>
 	    	<article>
 	    		<strong>No tienes rango</strong>
