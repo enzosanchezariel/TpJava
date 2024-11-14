@@ -32,4 +32,5 @@ public class Rank {
 		this.amountChallenges = amountChallenges;
 	}
 	
+
 }
