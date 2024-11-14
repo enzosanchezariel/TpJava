@@ -149,7 +149,7 @@
 			    	
 	            <h3>Salas disponibles</h3>
 	            <div class="responsive-grid">
-	            	<% for (Room room : usr.getRooms()) { if (!room.isDeleted() && room.isValid()) {%>
+	            	<% for (Room room : usr.getRooms()) { if (!room.isDeleted()) {%>
 	            	<a href="room?id=<%=room.getId()%>" class="secondary no-underline">
 						<article>
 							<div class="room-title">
@@ -166,6 +166,11 @@
 									<div class="chip">
 										<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" /><path d="M16 3l0 4" /><path d="M8 3l0 4" /><path d="M4 11l16 0" /><path d="M8 15h2v2h-2z" /></svg>
 			                            <strong>Vencimiento: <%= room.getEndDateAsString() %></strong></div>
+			                        <% if (!room.isValid()) { %>
+			                        	<div class="chip">
+											<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 5h9a2 2 0 0 1 2 2v9m-.184 3.839a2 2 0 0 1 -1.816 1.161h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 1.158 -1.815" /><path d="M16 3v4" /><path d="M8 3v1" /><path d="M4 11h7m4 0h5" /><path d="M3 3l18 18" /></svg>
+				                            <strong>Sala finalizada</strong></div>
+			                        <% } %>
 				                </div>
 							</footer>
 						</article>

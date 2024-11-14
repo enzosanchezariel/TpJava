@@ -67,11 +67,10 @@ public class RoomServlet extends HttpServlet {
 					request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
 				} else if (!foundRoom.isValid()) {
 					// Puede que la sala haya vencido
-					request.setAttribute("headTitle", "Sala vencida");
-					request.setAttribute("bodyTitle", "La sala a la que intenta ingresar ya venció");
-					request.setAttribute("buttonAction", "index.jsp");
-					request.setAttribute("buttonMessage", "Aceptar");
-					request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
+					
+					// Logica neccesaria para mostrar resltados de la sala
+					
+					request.getRequestDispatcher("WEB-INF/expiredroom.jsp").forward(request, response);
 				} else {
 	                List<RankedUser> rankedUsers = roomLogic.getRanking(foundRoom);
 	                request.setAttribute("rankedUsers", rankedUsers);
