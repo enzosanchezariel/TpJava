@@ -67,7 +67,7 @@ public class EmailLogic {
 				emailBody.append(" (Incorrecta)\n\n");
 			}
         }
-        emailBody.append("\nPuntaje total: ").append(amountRight);
+        emailBody.append("\nPuntaje total: ").append(amountRight).append("\n\n");
         
         emailBody.append("Gracias por completar el cuestionario.");
         

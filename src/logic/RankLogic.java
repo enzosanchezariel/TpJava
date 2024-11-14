@@ -14,6 +14,23 @@ public class RankLogic {
 	public Rank getById(Rank r) {
 		return rankDB.getById(r);
 	}
+	
+	public Rank getByAmountChallenges(Rank r, boolean compareIdNotSame) {
+		ArrayList<Rank> ranks = getAll();
+		Rank rank = null;
+		for (Rank aRank : ranks) {
+			if (aRank.getAmountChallenges() == r.getAmountChallenges()) {
+				if (compareIdNotSame) {
+					if (aRank.getId() != r.getId()) {
+						rank = aRank;
+					}
+				} else {
+					rank = aRank;
+				}
+			}
+		}
+		return rank;
+	}
 
 	public ArrayList<Rank> getAll() {
 		return rankDB.getAll();

@@ -97,8 +97,18 @@ public class RanksServlet extends HttpServlet {
 					Rank rank = new Rank(id, request.getParameter("name"), amountChallenges);
 					rank = rankLogic.validateAttributes(rank);
 					if (rank != null) {
-						rankLogic.update(rank);
-						response.sendRedirect("ranks");
+						if (rankLogic.getByAmountChallenges(rank, true) == null) {
+							rankLogic.update(rank);
+							response.sendRedirect("ranks");
+						} else {
+							request.setAttribute("headTitle", "Creación fallida");
+							request.setAttribute("bodyTitle", "Ya hay otro rango con esa cantidad de desafíos ("
+							+ rankLogic.getByAmountChallenges(rank, true).getName()
+							+ ") , edite ése en su lugar");
+							request.setAttribute("buttonAction", "ranks");
+							request.setAttribute("buttonMessage", "Aceptar");
+							request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
+						}
 					} else {
 						request.setAttribute("headTitle", "Modificación fallida");
 						request.setAttribute("bodyTitle", "Los campos tienen datos erroneos");
@@ -126,8 +136,16 @@ public class RanksServlet extends HttpServlet {
 				Rank rank = new Rank(0, request.getParameter("name"), amountChallenges);
 				rank = rankLogic.validateAttributes(rank);
 				if (rank != null) {
-					rankLogic.save(rank);
-					response.sendRedirect("ranks");
+					if (rankLogic.getByAmountChallenges(rank, false) == null) {
+						rankLogic.save(rank);
+						response.sendRedirect("ranks");
+					} else {
+						request.setAttribute("headTitle", "Creación fallida");
+						request.setAttribute("bodyTitle", "Ya hay un rango con esa cantidad de desafíos");
+						request.setAttribute("buttonAction", "ranks");
+						request.setAttribute("buttonMessage", "Aceptar");
+						request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
+					}
 				} else {
 					request.setAttribute("headTitle", "Creación fallida");
 					request.setAttribute("bodyTitle", "Los campos tienen datos erroneos");
