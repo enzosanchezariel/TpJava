@@ -59,7 +59,12 @@ public class EmailLogic {
             int userAnswer = response.getUserResponse();
             
             emailBody.append("Pregunta: ").append(question.getQuestionText()).append("\n");
-            emailBody.append("Tu respuesta: ").append(question.getOptions().get(userAnswer));
+            try {
+            	emailBody.append("Tu respuesta: ").append(question.getOptions().get(userAnswer - 1));
+			} catch (Exception e) {
+				emailBody.append("Tu respuesta: (Inválida)");
+			}
+            
             if (userAnswer == question.getCorrectAnswer()) {
             	emailBody.append(" (Correcta)\n\n");
             	amountRight++;

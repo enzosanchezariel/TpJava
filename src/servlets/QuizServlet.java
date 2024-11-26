@@ -161,7 +161,12 @@ public class QuizServlet extends HttpServlet {
 			
 			if (ongoingParticipation.getUser() != null && ongoingParticipation.getUser().getEmail() != null) {
 				EmailLogic mailLogic = new EmailLogic();
-			    mailLogic.sendQuizResults(ongoingParticipation.getUser().getEmail(), quizResponses);
+				
+				try {
+					mailLogic.sendQuizResults(ongoingParticipation.getUser().getEmail(), quizResponses);
+				} catch (Exception e) {
+					System.out.println("\n\nError al enviar email: \n"+ e +"\n\n");
+				}
 			}
 			
 			request.getSession().removeAttribute("attempt");
