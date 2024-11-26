@@ -66,10 +66,10 @@ public class RoomServlet extends HttpServlet {
 					request.setAttribute("buttonMessage", "Aceptar");
 					request.getRequestDispatcher("WEB-INF/message.jsp").forward(request, response);
 				} else if (!foundRoom.isValid()) {
-					// Puede que la sala haya vencido
-					
-					// Logica neccesaria para mostrar resltados de la sala
-					
+				    List<RankedUser> winners = roomLogic.getWinners(foundRoom);
+				    request.setAttribute("winners", winners);
+				    request.setAttribute("roomName", foundRoom.getName());
+				    request.setAttribute("roomId", foundRoom.getId());
 					request.getRequestDispatcher("WEB-INF/expiredroom.jsp").forward(request, response);
 				} else {
 	                List<RankedUser> rankedUsers = roomLogic.getRanking(foundRoom);

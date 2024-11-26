@@ -101,6 +101,11 @@ public class RoomLogic {
     public List<RankedUser> getRanking(Room room) {
         return RoomDB.getUsersbyRanking(room);
     }
+    
+    public List<RankedUser> getWinners(Room room) {
+        return RoomDB.getWinners(room);
+    }
+    
 
 	public void delete(Room r) {
 		roomDB.delete(r);

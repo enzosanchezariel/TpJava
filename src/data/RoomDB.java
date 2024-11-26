@@ -218,4 +218,62 @@ public class RoomDB {
 	    
 	    return rankedUsers;
 	}
+	
+	
+	public static ArrayList<RankedUser> getWinners(Room r) {
+		ArrayList<RankedUser> winners = new ArrayList<>();
+	    String sqlSelect = "SELECT u.id, u.name, u.surname, SUM(a.amountRight) AS totalPuntos "
+	                     + "FROM users u "
+	                     + "INNER JOIN answers a ON a.user_id = u.id "
+	                     + "INNER JOIN quizzes q ON q.id = a.quizz_id "
+	                     + "WHERE q.room_id = ? "
+	                     + "GROUP BY u.id "
+	                     + "ORDER BY totalPuntos DESC";
+
+	    Connect connect = new Connect();
+	    Connection con = connect.getConnection();
+
+	    if (con != null) {
+	        try {
+	            PreparedStatement stm = con.prepareStatement(sqlSelect);
+	            stm.setInt(1, r.getId());
+	            ResultSet rs = stm.executeQuery();
+	            
+	            int highestScore = -1; 
+	            
+	            while (rs.next()) {
+	                int userId = rs.getInt("id");
+	                String name = rs.getString("name");
+	                String surname = rs.getString("surname");
+	                int totalScore = rs.getInt("totalPuntos");
+	                
+	                User user = new User(userId, name, surname);
+	                RankedUser rankedUser = new RankedUser(user, totalScore);
+	                
+	                if (highestScore == -1 || totalScore == highestScore) {
+	                    winners.add(rankedUser);
+	                    highestScore = totalScore; 
+	                } else if (totalScore > highestScore) {
+	                    winners.clear(); 
+	                    winners.add(rankedUser);
+	                    highestScore = totalScore;
+	                } else {
+	                    break;
+	                }
+	            }
+	            rs.close();
+	            stm.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        } finally {
+	            try {
+	                con.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+	    
+	    return winners;
+	}
 }
